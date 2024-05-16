@@ -186,7 +186,7 @@ async function createColorCatalog() {
         const colorItem = document.createElement("div");
         colorItem.className = "color-item";
         colorItem.innerHTML = `
-            <div class="color-swatch" style="background-color: ${color.hexCode}"></div>
+            <div class="color-swatch" style="background-color: ${color.rgbCode}"></div>
             <h3>${color.name}</h3>
             <p>${color.alternativeNames.join(", ")}</p>
             <p>${color.description}</p>
