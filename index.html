@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한국 전통색 웹사이트</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" />
+</head>
+<body>
+<header>
+    <h1>한국 전통색</h1>
+    <nav>
+        <ul>
+            <li><a href="#home">홈</a></li>
+            <li><a href="#graph">색 그래프</a></li>
+            <li><a href="#catalog">색 카탈로그</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section id="home">
+        <h2>환영합니다!</h2>
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="색 이름 입력">
+            <button type="submit">검색</button>
+        </form>
+        <div id="search-results"></div>
+    </section>
+
+    <section id="graph">
+        <h2>색 그래프</h2>
+        <input type="file" onchange="readColorsFromExcel()">
+        <div id="color-graph"></div>
+    </section>
+
+    <section id="catalog">
+        <h2>색 카탈로그</h2>
+        <div id="color-catalog"></div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 한국 전통색 웹사이트. All rights reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
