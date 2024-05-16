@@ -66,7 +66,7 @@ async function showColorDetails(colorId) {
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>${color.name}</h2>
-            <div class="color-swatch" style="background-color: ${color.hexCode}"></div>
+            <div class="color-swatch" style="background-color: ${color.rgbCode}"></div>
             <p><strong>Alternative Names:</strong> ${color.alternativeNames.join(", ")}</p>
             <p><strong>Description:</strong> ${color.description}</p>
             <p><strong>HEX Code:</strong> ${color.hexCode}</p>
@@ -107,7 +107,7 @@ async function createColorGraph() {
         id: color.id,
         label: color.name,
         title: color.description,
-        color: color.hexCode,
+        color: color.rgbCode,
     }));
 
     // Create edges for similar colors and used with colors
