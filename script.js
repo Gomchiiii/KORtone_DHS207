@@ -1,36 +1,30 @@
 // script.js
 
-function excelExport(event){
-	readColorsFromExcel(event, handleExcelDataAll);
-}
 // Read color data from Excel file
-async function readColorsFromExcel(event, callback) {
-    let input = event.target;
-    let reader = new FileReader();
-    reader.onload = function () {
-        let data = reader.result;
-        let workBook = XLSX.read(data, { type: 'binary' });
-        let rows = XLSX.utils.sheet_to_json(workBook.Sheets[0]);
-        
-        const colors = [];
-        for (let i = 0; i < rows.length; i++) {
-            const [name, alternativeNames, description, hexCode, rgbCode, similarColors, usedWith] = rows[i];
-            colors.push({
-                id: i,
-                name: name,
-                alternativeNames: alternativeNames ? alternativeNames.split(";") : [],
-                description: description,
-                hexCode: hexCode,
-                rgbCode: rgbCode,
-                similarColors: similarColors ? similarColors.split(";") : [],
-                usedWith: usedWith ? usedWith.split(";") : [],
-            });
-        }
+async function readColorsFromExcel() {
+    const response = await fetch("Colors.xlsx");
+    const data = await response.arrayBuffer();
+    const workbook = XLSX.read(data, { type: "array" });
+    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+    const colors = [];
+    for (let i = 0; i < rows.length; i++) {
+        const [name, alternativeNames, description, hexCode, rgbCode, similarColors, usedWith] = rows[i];
+        colors.push({
+            id: i,
+            name: name,
+            alternativeNames: alternativeNames ? alternativeNames.split(";") : [],
+            description: description,
+            hexCode: hexCode,
+            rgbCode: rgbCode,
+            similarColors: similarColors ? similarColors.split(";") : [],
+            usedWith: usedWith ? usedWith.split(";") : [],
+        });
     }
 
     return colors;
 }
-
 
 // Search functionality
 const searchForm = document.getElementById("search-form");
