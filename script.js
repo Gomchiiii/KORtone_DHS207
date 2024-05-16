@@ -9,7 +9,7 @@ async function readColorsFromExcel() {
     const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
     const colors = [];
-    for (let i = 0; i < rows.length; i++) {
+    for (let i = 0; i < 90; i++) {
         const [name, alternativeNames, description, hexCode, rgbCode, similarColors, usedWith] = rows[i];
         colors.push({
             id: i,
