@@ -107,7 +107,7 @@ async function createColorGraph() {
         id: color.id,
         label: color.name,
         title: color.description,
-        color: color.hexCode,
+        color: color.rgbCode,
     }));
 
     // Create edges for similar colors and used with colors
