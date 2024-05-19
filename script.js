@@ -213,9 +213,7 @@ function showNotice() {
     const notice = document.querySelector('.notice');
     if (isSamsungBrowser() && isDarkMode()) {
         notice.style.display = 'block';
-    } else {
-        notice.style.display = 'none';
-    }
+    } 
 }
 
 function hideNotice() {
