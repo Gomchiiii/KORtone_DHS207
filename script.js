@@ -205,15 +205,11 @@ function isSamsungBrowser() {
     return userAgent.includes('samsungbrowser');
 }
 
-function isDarkMode() {
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-}
-
 function showNotice() {
     const notice = document.querySelector('.notice');
-    if (isSamsungBrowser() && isDarkMode()) {
+    if (isSamsungBrowser()) {
         notice.style.display = 'block';
-    } 
+    }
 }
 
 function hideNotice() {
