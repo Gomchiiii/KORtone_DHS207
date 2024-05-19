@@ -197,32 +197,18 @@ async function createColorCatalog() {
         catalogContainer.appendChild(colorItem);
     });
 }
-
-// Browser notice functionality
-const browserNotice = document.getElementById("browser-notice");
-const closeNotice = document.getElementById("close-notice");
-
-function isSamsungBrowser() {
-    const userAgent = navigator.userAgent.toLowerCase();
-    return userAgent.includes("samsungbrowser");
-}
-
-function isDarkMode() {
-    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-}
-
 function showNotice() {
-    browserNotice.style.display = "block";
+    const notice = document.querySelector('.notice');
+    notice.style.display = 'block';
 }
 
 function hideNotice() {
-    browserNotice.style.display = "none";
+    const notice = document.querySelector('.notice');
+    notice.style.display = 'none';
 }
 
-closeNotice.addEventListener("click", hideNotice);
-
-// Show the notice when the page loads if conditions are met
-window.addEventListener("load", showNotice);
+document.addEventListener('DOMContentLoaded', showNotice);
+document.querySelector('.close-notice').addEventListener('click', hideNotice);
 
 // Initialize the website
 async function init() {
