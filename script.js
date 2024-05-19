@@ -212,9 +212,7 @@ function isDarkMode() {
 }
 
 function showNotice() {
-   // if (isSamsungBrowser() && isDarkMode()) {
     browserNotice.style.display = "block";
-    //}
 }
 
 function hideNotice() {
