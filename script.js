@@ -197,9 +197,25 @@ async function createColorCatalog() {
         catalogContainer.appendChild(colorItem);
     });
 }
+
+
+// Browser notice functionality
+function isSamsungBrowser() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    return userAgent.includes('samsungbrowser');
+}
+
+function isDarkMode() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
 function showNotice() {
     const notice = document.querySelector('.notice');
-    notice.style.display = 'block';
+    if (isSamsungBrowser() && isDarkMode()) {
+        notice.style.display = 'block';
+    } else {
+        notice.style.display = 'none';
+    }
 }
 
 function hideNotice() {
