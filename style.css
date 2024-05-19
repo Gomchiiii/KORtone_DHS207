@@ -155,6 +155,7 @@ footer {
     margin-bottom: 1rem;
     border: 1px solid #f5c6cb;
     border-radius: 4px;
+    display: none;
 }
 
 .notice p {
