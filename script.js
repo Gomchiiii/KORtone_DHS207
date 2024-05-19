@@ -198,6 +198,35 @@ async function createColorCatalog() {
     });
 }
 
+//browser notice 
+const browserNotice = document.getElementById("browser-notice");
+const closeNotice = document.getElementById("close-notice");
+
+function isSamsungBrowser() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    return userAgent.includes("samsungbrowser");
+}
+
+function isDarkMode() {
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+
+function showNotice() {
+    if (isSamsungBrowser() && isDarkMode()) {
+        browserNotice.style.display = "block";
+    }
+}
+
+function hideNotice() {
+    browserNotice.style.display = "none";
+}
+
+closeNotice.addEventListener("click", hideNotice);
+
+// Show the notice when the page loads if conditions are met
+window.addEventListener("load", showNotice);
+
+
 // Initialize the website
 async function init() {
     await createColorGraph();
