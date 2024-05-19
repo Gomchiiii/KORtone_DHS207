@@ -198,7 +198,7 @@ async function createColorCatalog() {
     });
 }
 
-//browser notice 
+// Browser notice functionality
 const browserNotice = document.getElementById("browser-notice");
 const closeNotice = document.getElementById("close-notice");
 
@@ -225,7 +225,6 @@ closeNotice.addEventListener("click", hideNotice);
 
 // Show the notice when the page loads if conditions are met
 window.addEventListener("load", showNotice);
-
 
 // Initialize the website
 async function init() {
