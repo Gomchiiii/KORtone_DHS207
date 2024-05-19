@@ -131,7 +131,6 @@ footer {
     cursor: pointer;
 }
 
-/* style.css */
 
 :root {
     --background-color: white;
@@ -147,3 +146,20 @@ footer {
         --secondary-color: #1f1f1f;
     }
 }
+
+
+.notice {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    display: none;
+}
+
+.notice p {
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+
