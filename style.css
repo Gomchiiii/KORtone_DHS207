@@ -51,6 +51,26 @@ section {
     padding: 0.5rem;
 }
 
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.search-result-color {
+    width: 30px;
+    height: 30px;
+    margin-right: 1rem;
+    border: 1px solid #ccc;
+}
+
+.search-result-info {
+    flex-grow: 1;
+}
+
+/* ... (existing code) */
+
 button {
     background-color: #4a69bd;
     border: none;

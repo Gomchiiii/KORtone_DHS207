@@ -43,17 +43,26 @@ searchForm.addEventListener("submit", async (e) => {
     displaySearchResults(results);
 });
 
+// script.js
+
+
 function displaySearchResults(results) {
     searchResults.innerHTML = "";
     results.forEach((color) => {
         const resultItem = document.createElement("div");
+        resultItem.className = "search-result-item";
         resultItem.innerHTML = `
-            <h3>${color.name}</h3>
-            <button onclick="showColorDetails(${color.id})">상세보기</button>
+            <div class="search-result-color" style="background-color: ${color.hexCode}"></div>
+            <div class="search-result-info">
+                <h3>${color.name}</h3>
+                <button onclick="showColorDetails(${color.id})">상세보기</button>
+            </div>
         `;
         searchResults.appendChild(resultItem);
     });
 }
+
+// ... (existing code)
 
 // Color details functionality
 async function showColorDetails(colorId) {
