@@ -59,11 +59,10 @@ section {
     align-items: flex-start;
     margin-bottom: 1rem;
     cursor: pointer;
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s;
 }
 
 .search-result-item:hover {
-    align-items: flex-start;
     transform: scale(1.1);
 }
 
