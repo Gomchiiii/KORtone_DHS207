@@ -248,6 +248,10 @@ function createReferencesSection() {
             text: "Park, M. (2020). The meaning of colors in Korean culture. Seoul: Korean Publishing House.",
             // No URL provided for this reference
         },
+        {
+            text: "Park, M. (2020). The meaning of colors in Korean culture. Seoul: Korean Pub한국어도되나?체크.//기lishing House.",
+            // No URL provided for this reference
+        },
         // Add more references as needed
     ];
 
