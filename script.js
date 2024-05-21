@@ -46,6 +46,7 @@ searchForm.addEventListener("submit", async (e) => {
 // script.js
 
 
+
 function displaySearchResults(results) {
     searchResults.innerHTML = "";
     results.forEach((color) => {
@@ -55,13 +56,12 @@ function displaySearchResults(results) {
             <div class="search-result-color" style="background-color: ${color.hexCode}"></div>
             <div class="search-result-info">
                 <h3>${color.name}</h3>
-                <button onclick="showColorDetails(${color.id})">상세보기</button>
             </div>
         `;
+        resultItem.addEventListener("click", () => showColorDetails(color.id));
         searchResults.appendChild(resultItem);
     });
 }
-
 
 
 // Color details functionality
