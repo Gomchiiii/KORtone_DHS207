@@ -60,7 +60,7 @@ section {
     margin-bottom: 1rem;
     cursor: pointer;
     transition: transform 0.2s;
-    transform-origin: center;
+    transform-origin: left center;
 }
 
 .search-result-item:hover {
