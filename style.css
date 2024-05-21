@@ -140,13 +140,15 @@ footer {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: var(--modal-background-color);
+    color: var(--modal-text-color);
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
     max-width: 600px;
 }
+
 
 .close {
     color: #aaaaaa;
@@ -163,12 +165,16 @@ footer {
     cursor: pointer;
 }
 
+/* style.css */
+
 
 :root {
     --background-color: white;
     --text-color: black;
     --primary-color: #4a69bd;
     --secondary-color: #f2f2f2;
+    --modal-background-color: #fefefe;
+    --modal-text-color: #333;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -176,8 +182,13 @@ footer {
         --background-color: #121212;
         --text-color: white;
         --secondary-color: #1f1f1f;
+        --modal-background-color: #333;
+        --modal-text-color: #fefefe;
     }
 }
+
+
+
 
 
 .notice {
