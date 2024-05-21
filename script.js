@@ -43,9 +43,6 @@ searchForm.addEventListener("submit", async (e) => {
     displaySearchResults(results);
 });
 
-// script.js
-
-
 function displaySearchResults(results) {
     searchResults.innerHTML = "";
     results.forEach((color) => {
@@ -62,7 +59,6 @@ function displaySearchResults(results) {
     });
 }
 
-// ... (existing code)
 
 // Color details functionality
 async function showColorDetails(colorId) {
