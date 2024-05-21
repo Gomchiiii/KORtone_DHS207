@@ -52,6 +52,9 @@ section {
 }
 
 
+/* style.css */
+
+
 .search-result-item {
     display: flex;
     align-items: center;
@@ -69,7 +72,6 @@ section {
     flex-grow: 1;
 }
 
-/* ... (existing code) */
 
 button {
     background-color: #4a69bd;
