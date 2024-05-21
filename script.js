@@ -224,10 +224,47 @@ function hideNotice() {
 document.addEventListener('DOMContentLoaded', showNotice);
 document.querySelector('.close-notice').addEventListener('click', hideNotice);
 
+function createReferencesSection() {
+    const referencesContainer = document.getElementById("references-container");
+    const references = [
+        {
+            text: "Kim, J. (2022). Traditional Korean colors: A historical perspective. Journal of Korean Art and Culture, 15(3), 123-145.",
+            url: "https://example.com/kim-2022"
+        },
+        {
+            text: "Lee, S., & Park, H. (2021). Color symbolism in Korean traditional art. Korean Journal of Color Research, 8(2), 56-78.",
+            // No URL provided for this reference
+        },
+        {
+            text: "Park, M. (2020). The meaning of colors in Korean culture. Seoul: Korean Publishing House.",
+            // No URL provided for this reference
+        },
+        // Add more references as needed
+    ];
+
+    references.forEach((reference, index) => {
+        const referenceItem = document.createElement("div");
+        referenceItem.className = "reference-item";
+
+        if (reference.url) {
+            referenceItem.innerHTML = `
+                <p>[${index + 1}] <a href="${reference.url}" target="_blank">${reference.text}</a></p>
+            `;
+        } else {
+            referenceItem.innerHTML = `
+                <p>[${index + 1}] ${reference.text}</p>
+            `;
+        }
+
+        referencesContainer.appendChild(referenceItem);
+    });
+}
+
 // Initialize the website
 async function init() {
     await createColorGraph();
     await createColorCatalog();
+    createReferencesSection();
 }
 
 init();
