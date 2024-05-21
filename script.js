@@ -10,7 +10,7 @@ async function readColorsFromExcel() {
 
     const colors = [];
     for (let i = 0; i < 90; i++) {
-        const [name, alternativeNames, description, hexCode, rgbCode, similarColors, usedWith] = rows[i];
+        const [name, alternativeNames, description, hexCode, rgbCode, pantoneCode, similarColors, usedWith] = rows[i];
         colors.push({
             id: i,
             name: name,
