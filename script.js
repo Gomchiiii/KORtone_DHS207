@@ -10,7 +10,7 @@ async function readColorsFromExcel() {
 
     const colors = [];
     for (let i = 0; i < 90; i++) {
-        const [name, alternativeNames, description, hexCode, rgbCode, similarColors, usedWith] = rows[i];
+        const [name, alternativeNames, description, hexCode, rgbCode, pantoneCode, similarColors, usedWith] = rows[i];
         colors.push({
             id: i,
             name: name,
@@ -18,6 +18,7 @@ async function readColorsFromExcel() {
             description: description,
             hexCode: hexCode,
             rgbCode: rgbCode,
+            pantoneCode : pantoneCode,
             similarColors: similarColors ? similarColors.split(";") : [],
             usedWith: usedWith ? usedWith.split(";") : [],
         });
@@ -71,6 +72,7 @@ async function showColorDetails(colorId) {
             <p><strong>Description:</strong> ${color.description}</p>
             <p><strong>HEX Code:</strong> ${color.hexCode}</p>
             <p><strong>RGB Code:</strong> ${color.rgbCode}</p>
+            <p><strong>RGB Code:</strong> ${color.pantoneCode}</p>
             <h3>Similar Colors:</h3>
             <ul>
                 ${color.similarColors.map((similarColor) => `<li>${similarColor}</li>`).join("")}
@@ -192,6 +194,7 @@ async function createColorCatalog() {
             <p>${color.description}</p>
             <p>HEX: ${color.hexCode}</p>
             <p>RGB: ${color.rgbCode}</p>
+            <p>RGB: ${color.pantoneCode}</p>
         `;
         colorItem.addEventListener("click", () => showColorDetails(color.id));
         catalogContainer.appendChild(colorItem);
