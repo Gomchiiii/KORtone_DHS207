@@ -90,9 +90,12 @@ async function showColorDetails(colorId) {
             <ul>
                 ${color.usedWith.map((usedWithColor) => `<li>${usedWithColor}</li>`).join("")}
             </ul>
-            <button class="add-to-palette" data-color="${color.hexCode}">Put this color to color palette generator</button>
+            <button class="add-to-palette" data-color="${color.hexCode}">Add to Palette</button>
         </div>
     `;
+
+    // ... (existing code)
+}
 
     // ... (existing code)
 
@@ -310,7 +313,7 @@ async function createPaletteGenerator() {
 
 // ... (existing code)
 
-// Handle click event on "Put this color to color palette generator" button
+// Handle click event on "Add to Palette" button
 document.addEventListener("click", (event) => {
     if (event.target.classList.contains("add-to-palette")) {
         const colorHexCode = event.target.getAttribute("data-color");
@@ -319,15 +322,20 @@ document.addEventListener("click", (event) => {
 });
 
 function addColorToPalette(colorHexCode) {
-    const paletteColorsContainer = document.getElementById("palette-colors");
-    const paletteColor = document.createElement("div");
-    paletteColor.className = "palette-color";
-    paletteColor.style.backgroundColor = colorHexCode;
-    paletteColor.addEventListener("click", () => {
-        paletteColor.classList.toggle("selected");
-    });
-    paletteColorsContainer.appendChild(paletteColor);
+    const paletteResultContainer = document.getElementById("palette-result");
+    const existingColors = Array.from(paletteResultContainer.children).map(
+        (paletteItem) => paletteItem.style.backgroundColor
+    );
+
+    if (!existingColors.includes(colorHexCode)) {
+        const paletteItem = document.createElement("div");
+        paletteItem.className = "palette-item";
+        paletteItem.style.backgroundColor = colorHexCode;
+        paletteResultContainer.appendChild(paletteItem);
+    }
 }
+
+// ... (existing code)
 
 // ... (existing code)
 
