@@ -90,8 +90,11 @@ async function showColorDetails(colorId) {
             <ul>
                 ${color.usedWith.map((usedWithColor) => `<li>${usedWithColor}</li>`).join("")}
             </ul>
+            <button class="add-to-palette" data-color="${color.hexCode}">Put this color to color palette generator</button>
         </div>
     `;
+
+    // ... (existing code)
 
     // Add event listener to close the modal when clicking on the close button or outside the modal content
     const closeModal = () => {
@@ -304,6 +307,29 @@ async function createPaletteGenerator() {
         });
     });
 }
+
+// ... (existing code)
+
+// Handle click event on "Put this color to color palette generator" button
+document.addEventListener("click", (event) => {
+    if (event.target.classList.contains("add-to-palette")) {
+        const colorHexCode = event.target.getAttribute("data-color");
+        addColorToPalette(colorHexCode);
+    }
+});
+
+function addColorToPalette(colorHexCode) {
+    const paletteColorsContainer = document.getElementById("palette-colors");
+    const paletteColor = document.createElement("div");
+    paletteColor.className = "palette-color";
+    paletteColor.style.backgroundColor = colorHexCode;
+    paletteColor.addEventListener("click", () => {
+        paletteColor.classList.toggle("selected");
+    });
+    paletteColorsContainer.appendChild(paletteColor);
+}
+
+// ... (existing code)
 
 // Initialize the website
 async function init() {
