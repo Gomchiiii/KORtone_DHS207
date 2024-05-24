@@ -81,7 +81,38 @@ section {
     margin: 0;
 }
 
+#palette-colors {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
 
+.palette-color {
+    width: 50px;
+    height: 50px;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.palette-color.selected {
+    border: 2px solid #000;
+}
+
+#palette-result {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.palette-item {
+    width: 100px;
+    height: 100px;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ccc;
+}
 
 button {
     background-color: #4a69bd;
@@ -184,6 +215,10 @@ footer {
         --secondary-color: #1f1f1f;
         --modal-background-color: #333;
         --modal-text-color: #fefefe;
+    }
+
+    .search-result-item:hover {
+        background-color: #333;
     }
 }
 

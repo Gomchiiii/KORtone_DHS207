@@ -273,11 +273,44 @@ function createReferencesSection() {
     });
 }
 
+// Color palette generator functionality
+async function createPaletteGenerator() {
+    const paletteColorsContainer = document.getElementById("palette-colors");
+    const generatePaletteButton = document.getElementById("generate-palette");
+    const paletteResultContainer = document.getElementById("palette-result");
+
+    const colors = await readColorsFromExcel();
+
+    colors.forEach((color) => {
+        const paletteColor = document.createElement("div");
+        paletteColor.className = "palette-color";
+        paletteColor.style.backgroundColor = color.hexCode;
+        paletteColor.addEventListener("click", () => {
+            paletteColor.classList.toggle("selected");
+        });
+        paletteColorsContainer.appendChild(paletteColor);
+    });
+
+    generatePaletteButton.addEventListener("click", () => {
+        const selectedColors = Array.from(document.querySelectorAll(".palette-color.selected"));
+        const paletteColors = selectedColors.map((color) => color.style.backgroundColor);
+
+        paletteResultContainer.innerHTML = "";
+        paletteColors.forEach((color) => {
+            const paletteItem = document.createElement("div");
+            paletteItem.className = "palette-item";
+            paletteItem.style.backgroundColor = color;
+            paletteResultContainer.appendChild(paletteItem);
+        });
+    });
+}
+
 // Initialize the website
 async function init() {
     await createColorGraph();
     await createColorCatalog();
     createReferencesSection();
+    createPaletteGenerator();
 }
 
 init();
