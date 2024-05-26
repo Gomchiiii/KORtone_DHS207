@@ -308,7 +308,6 @@ function createReferencesSection() {
 // Color palette generator functionality
 async function createPaletteGenerator() {
     const paletteColorsContainer = document.getElementById("palette-colors");
-    const generatePaletteButton = document.getElementById("generate-palette");
     const paletteResultContainer = document.getElementById("palette-result");
 
     const colors = await readColorsFromExcel();
@@ -319,67 +318,54 @@ async function createPaletteGenerator() {
         paletteColor.style.backgroundColor = color.hexCode;
         paletteColor.addEventListener("click", () => {
             paletteColor.classList.toggle("selected");
+            updatePaletteResult();
         });
         paletteColorsContainer.appendChild(paletteColor);
     });
 
-    
-    generatePaletteButton.addEventListener("click", () => {
+    function updatePaletteResult() {
         const selectedColors = Array.from(document.querySelectorAll(".palette-color.selected"));
         const paletteColors = selectedColors.map((color) => color.style.backgroundColor);
 
-        const existingColors = Array.from(paletteResultContainer.children).map(
-            (paletteItem) => paletteItem.style.backgroundColor
-        );
-
+        paletteResultContainer.innerHTML = "";
         paletteColors.forEach((color) => {
-            if (!existingColors.includes(color)) {
-                const paletteItem = document.createElement("div");
-                paletteItem.className = "palette-item";
-                paletteItem.style.backgroundColor = color;
-                paletteItem.addEventListener("click", () => {
-                    paletteItem.remove();
-                });
-                paletteResultContainer.appendChild(paletteItem);
-            }
+            const paletteItem = document.createElement("div");
+            paletteItem.className = "palette-item";
+            paletteItem.style.backgroundColor = color;
+            paletteItem.addEventListener("click", () => {
+                paletteItem.remove();
+                const correspondingPaletteColor = document.querySelector(`.palette-color[style="background-color: ${color};"]`);
+                if (correspondingPaletteColor) {
+                    correspondingPaletteColor.classList.remove("selected");
+                }
+            });
+            paletteResultContainer.appendChild(paletteItem);
         });
-    });
-}
-// ... (existing code)
-
-// Handle click event on "Put this color to color palette generator" button
-document.addEventListener("click", (event) => {
-    if (event.target.classList.contains("add-to-palette")) {
-        const colorHexCode = event.target.getAttribute("data-color");
-        addColorToPaletteResult(colorHexCode);
     }
-});
+}
 
 function addColorToPaletteResult(colorHexCode) {
-    const paletteResultContainer = document.getElementById("palette-result");
-    const existingPaletteItems = paletteResultContainer.querySelectorAll(".palette-item");
     const paletteColorsContainer = document.getElementById("palette-colors");
     const paletteColors = paletteColorsContainer.querySelectorAll(".palette-color");
+    const paletteResultContainer = document.getElementById("palette-result");
 
     paletteColors.forEach((paletteColor) => {
         if (paletteColor.style.backgroundColor === colorHexCode) {
             paletteColor.classList.add("selected");
         }
     });
-            
-    const isDuplicate = Array.from(existingPaletteItems).some(
-        (paletteItem) => paletteItem.style.backgroundColor === colorHexCode
-    );
-        
-    if (!isDuplicate) {
-        const paletteItem = document.createElement("div");
-        paletteItem.className = "palette-item";
-        paletteItem.style.backgroundColor = colorHexCode;
-        paletteItem.addEventListener("click", () => {
-            paletteItem.remove();
-        });
-        paletteResultContainer.appendChild(paletteItem);
-    }
+
+    const paletteItem = document.createElement("div");
+    paletteItem.className = "palette-item";
+    paletteItem.style.backgroundColor = colorHexCode;
+    paletteItem.addEventListener("click", () => {
+        paletteItem.remove();
+        const correspondingPaletteColor = document.querySelector(`.palette-color[style="background-color: ${colorHexCode};"]`);
+        if (correspondingPaletteColor) {
+            correspondingPaletteColor.classList.remove("selected");
+        }
+    });
+    paletteResultContainer.appendChild(paletteItem);
 }
 
 async function savePaletteAsImage() {
@@ -390,7 +376,7 @@ async function savePaletteAsImage() {
         return;
     }
 
-    const siteNameWatermark = "KoreanTraditionalColors.com";
+    const siteNameWatermark = "KORtone - https://gomchiiii.github.io/KORtone_DHS207/";
 
     // 이미지 생성 전 스타일 저장
     const originalPadding = paletteResultContainer.style.padding;
