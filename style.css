@@ -47,18 +47,33 @@ section {
 }
 
 #color-chooser {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
     cursor: pointer;
+}
+
+#color-chooser::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+#color-chooser::-webkit-color-swatch {
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 #search-input {
     flex-grow: 1;
     padding: 0.5rem;
 }
-/* style.css */
-
 
 .search-result-item {
     display: flex;
