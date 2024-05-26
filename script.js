@@ -370,18 +370,24 @@ function addColorToPaletteResult(colorHexCode) {
         paletteColorsContainer.appendChild(paletteColor);
     }
 
-    const paletteItem = document.createElement("div");
-    paletteItem.className = "palette-item";
-    paletteItem.style.backgroundColor = colorHexCode;
-    paletteItem.addEventListener("click", () => {
-        paletteItem.remove();
-        const correspondingPaletteColor = document.querySelector(`.palette-color[style="background-color: ${colorHexCode};"]`);
-        if (correspondingPaletteColor) {
-            correspondingPaletteColor.classList.remove("selected");
-            updatePaletteResult();
-        }
-    });
-    paletteResultContainer.appendChild(paletteItem);
+    const existingPaletteItem = Array.from(paletteResultContainer.children).find(
+        (item) => item.style.backgroundColor === colorHexCode
+    );
+
+    if (!existingPaletteItem) {
+        const paletteItem = document.createElement("div");
+        paletteItem.className = "palette-item";
+        paletteItem.style.backgroundColor = colorHexCode;
+        paletteItem.addEventListener("click", () => {
+            paletteItem.remove();
+            const correspondingPaletteColor = document.querySelector(`.palette-color[style="background-color: ${colorHexCode};"]`);
+            if (correspondingPaletteColor) {
+                correspondingPaletteColor.classList.remove("selected");
+                updatePaletteResult();
+            }
+        });
+        paletteResultContainer.appendChild(paletteItem);
+    }
 }
 
 async function savePaletteAsImage() {
@@ -469,6 +475,7 @@ async function downloadColorChip(event) {
     const chipWidth = 200;
     const chipHeight = 150;
     const textHeight = 50;
+    const padding = 10;
 
     canvas.width = chipWidth;
     canvas.height = chipHeight + textHeight;
@@ -479,13 +486,15 @@ async function downloadColorChip(event) {
     ctx.fillStyle = "white";
     ctx.fillRect(0, chipHeight, chipWidth, textHeight);
 
-    ctx.font = "14px Arial";
+    ctx.font = "bold 18px Arial";
     ctx.fillStyle = "black";
-    ctx.textAlign = "center";
-    ctx.fillText(colorName, chipWidth / 2, chipHeight + 20);
-    ctx.fillText(`RGB: ${colorRGB}`, chipWidth / 2, chipHeight + 35);
-    ctx.fillText(`HEX: ${colorHex}`, chipWidth / 2, chipHeight + 50);
-    ctx.fillText(`Pantone: ${colorPantone}`, chipWidth / 2, chipHeight + 65);
+    ctx.textAlign = "left";
+    ctx.fillText(colorName, padding, chipHeight + 25);
+
+    ctx.font = "14px Arial";
+    ctx.fillText(`RGB: ${colorRGB}`, padding, chipHeight + 40);
+    ctx.fillText(`HEX: ${colorHex}`, padding, chipHeight + 55);
+    ctx.fillText(`Pantone: ${colorPantone}`, padding, chipHeight + 70);
 
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
