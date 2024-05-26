@@ -435,6 +435,26 @@ async function savePaletteAsImage() {
 // "이미지로 저장" 버튼 클릭 이벤트 리스너 추가
 document.getElementById("save-palette-image").addEventListener("click", savePaletteAsImage);
 
+function sortPaletteResult() {
+    const paletteColorsContainer = document.getElementById("palette-colors");
+    const paletteColors = Array.from(paletteColorsContainer.querySelectorAll(".palette-color"));
+    const paletteResultContainer = document.getElementById("palette-result");
+    const paletteItems = Array.from(paletteResultContainer.querySelectorAll(".palette-item"));
+
+    const sortedColors = paletteColors.map((color) => color.style.backgroundColor);
+    const sortedPaletteItems = sortedColors.map((color) => {
+        return paletteItems.find((item) => item.style.backgroundColor === color);
+    }).filter((item) => item !== undefined);
+
+    paletteResultContainer.innerHTML = "";
+    sortedPaletteItems.forEach((item) => {
+        paletteResultContainer.appendChild(item);
+    });
+}
+
+// "Sort Palette" 버튼 클릭 이벤트 리스너 추가
+document.getElementById("sort-palette").addEventListener("click", sortPaletteResult);
+
 
 // Initialize the website
 async function init() {
