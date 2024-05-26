@@ -455,6 +455,49 @@ function sortPaletteResult() {
 // "Sort Palette" 버튼 클릭 이벤트 리스너 추가
 document.getElementById("sort-palette").addEventListener("click", sortPaletteResult);
 
+async function downloadColorChip(event) {
+    const button = event.target;
+    const colorHex = button.getAttribute("data-color");
+    const colorName = button.getAttribute("data-name");
+    const colorRGB = button.getAttribute("data-rgb");
+    const colorPantone = button.getAttribute("data-pantone");
+
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const chipWidth = 200;
+    const chipHeight = 150;
+    const textHeight = 50;
+
+    canvas.width = chipWidth;
+    canvas.height = chipHeight + textHeight;
+
+    ctx.fillStyle = colorHex;
+    ctx.fillRect(0, 0, chipWidth, chipHeight);
+
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, chipHeight, chipWidth, textHeight);
+
+    ctx.font = "14px Arial";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.fillText(colorName, chipWidth / 2, chipHeight + 20);
+    ctx.fillText(`RGB: ${colorRGB}`, chipWidth / 2, chipHeight + 35);
+    ctx.fillText(`HEX: ${colorHex}`, chipWidth / 2, chipHeight + 50);
+    ctx.fillText(`Pantone: ${colorPantone}`, chipWidth / 2, chipHeight + 65);
+
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = `${colorName}_color_chip.png`;
+    link.click();
+}
+
+// "Download Color Chip" 버튼 클릭 이벤트 리스너 등록
+document.addEventListener("click", (event) => {
+    if (event.target.classList.contains("download-color-chip")) {
+        downloadColorChip(event);
+    }
+});
 
 // Initialize the website
 async function init() {
