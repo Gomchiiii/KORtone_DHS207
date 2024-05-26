@@ -362,6 +362,7 @@ function addColorToPaletteResult(colorHexCode) {
         if (paletteColor.style.backgroundColor === colorHexCode) {
             paletteColor.classList.toggle("selected");
         }
+    }
             
     const isDuplicate = Array.from(existingPaletteItems).some(
         (paletteItem) => paletteItem.style.backgroundColor === colorHexCode
