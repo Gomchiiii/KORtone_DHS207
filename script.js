@@ -45,7 +45,56 @@ searchForm.addEventListener("submit", async (e) => {
 
 // script.js
 
+// ... (existing code)
 
+// Search functionality
+const searchForm = document.getElementById("search-form");
+const searchInput = document.getElementById("search-input");
+const colorChooser = document.getElementById("color-chooser");
+const searchResults = document.getElementById("search-results");
+
+searchForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    const selectedColor = colorChooser.value;
+    const colors = await readColorsFromExcel();
+
+    if (searchTerm) {
+        const results = colors.filter((color) =>
+            color.name.toLowerCase().includes(searchTerm) ||
+            color.alternativeNames.some((name) => name.toLowerCase().includes(searchTerm))
+        );
+        displaySearchResults(results);
+    } else if (selectedColor) {
+        const selectedColorRGB = hexToRgb(selectedColor);
+        const similarColors = colors.map((color) => ({
+            ...color,
+            distance: colorDistance(selectedColorRGB, hexToRgb(color.hexCode)),
+        }));
+        similarColors.sort((a, b) => a.distance - b.distance);
+        const topSimilarColors = similarColors.slice(0, 10);
+        displaySearchResults(topSimilarColors);
+    } else {
+        searchResults.innerHTML = "";
+    }
+});
+
+// ... (existing code)
+
+// Helper functions
+function hexToRgb(hex) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return { r, g, b };
+}
+
+function colorDistance(color1, color2) {
+    const rDiff = color1.r - color2.r;
+    const gDiff = color1.g - color2.g;
+    const bDiff = color1.b - color2.b;
+    return Math.sqrt(rDiff * rDiff + gDiff * gDiff + bDiff * bDiff);
+}
 
 function displaySearchResults(results) {
     searchResults.innerHTML = "";
