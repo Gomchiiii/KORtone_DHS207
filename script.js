@@ -472,9 +472,9 @@ async function downloadColorChip(event) {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    const chipWidth = 200;
-    const chipHeight = 200;
-    const textHeight = 120;
+    const chipWidth = 240;
+    const chipHeight = 240;
+    const textHeight = 150;
     const padding = 10;
 
     canvas.width = chipWidth;
