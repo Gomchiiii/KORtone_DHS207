@@ -355,7 +355,7 @@ function addColorToPaletteResult(colorHexCode) {
     paletteColor.addEventListener("click", () => {
         paletteColor.classList.toggle("selected");
     });
-    paletteResultContainer.appendChild(paletteItem);
+    paletteResultContainer.appendChild(paletteColor);
 }
 
 // ... (existing code)
