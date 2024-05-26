@@ -349,13 +349,16 @@ document.addEventListener("click", (event) => {
 
 function addColorToPaletteResult(colorHexCode) {
     const paletteResultContainer = document.getElementById("palette-result");
-    const paletteColor = document.createElement("div");
-    paletteColor.className = "palette-color";
-    paletteColor.style.backgroundColor = colorHexCode;
-    paletteColor.addEventListener("click", () => {
-        paletteColor.classList.toggle("selected");
+
+    paletteResultContainer.innerHTML = "";
+           
+    const paletteItem = document.createElement("div");
+    paletteItem.className = "palette-item";
+    paletteItem.style.backgroundColor = colorHexCode;
+    paletteItem.addEventListener("click", () => {
+        paletteItem.classList.toggle("selected");
     });
-    paletteResultContainer.appendChild(paletteColor);
+    paletteResultContainer.appendChild(paletteItem);
 }
 
 // ... (existing code)
