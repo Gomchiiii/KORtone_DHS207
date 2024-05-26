@@ -327,16 +327,20 @@ async function createPaletteGenerator() {
         const selectedColors = Array.from(document.querySelectorAll(".palette-color.selected"));
         const paletteColors = selectedColors.map((color) => color.style.backgroundColor);
 
-        paletteResultContainer.innerHTML = "";
+        const existingColors = Array.from(paletteResultContainer.children).map(
+            (paletteItem) => paletteItem.style.backgroundColor
+        );
+
         paletteColors.forEach((color) => {
-            const paletteItem = document.createElement("div");
-            paletteItem.className = "palette-item";
-            paletteItem.style.backgroundColor = color;
-            paletteResultContainer.appendChild(paletteItem);
+            if (!existingColors.includes(color)) {
+                const paletteItem = document.createElement("div");
+                paletteItem.className = "palette-item";
+                paletteItem.style.backgroundColor = color;
+                paletteResultContainer.appendChild(paletteItem);
+            }
         });
     });
 }
-
 // ... (existing code)
 
 // Handle click event on "Put this color to color palette generator" button
