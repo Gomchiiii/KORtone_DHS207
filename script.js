@@ -353,11 +353,13 @@ document.addEventListener("click", (event) => {
 
 function addColorToPaletteResult(colorHexCode) {
     const paletteResultContainer = document.getElementById("palette-result");
-    const existingColors = Array.from(paletteResultContainer.children).map(
-        (paletteItem) => paletteItem.style.backgroundColor
+    const existingPaletteItems = paletteResultContainer.querySelectorAll(".palette-item");
+
+    const isDuplicate = Array.from(existingPaletteItems).some(
+        (paletteItem) => paletteItem.style.backgroundColor === colorHexCode
     );
 
-    if (!existingColors.includes(colorHexCode)) {
+    if (!isDuplicate) {
         const paletteItem = document.createElement("div");
         paletteItem.className = "palette-item";
         paletteItem.style.backgroundColor = colorHexCode;
