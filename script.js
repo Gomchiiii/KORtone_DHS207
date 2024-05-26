@@ -343,19 +343,19 @@ async function createPaletteGenerator() {
 document.addEventListener("click", (event) => {
     if (event.target.classList.contains("add-to-palette")) {
         const colorHexCode = event.target.getAttribute("data-color");
-        addColorToPalette(colorHexCode);
+        addColorToPaletteResult(colorHexCode);
     }
 });
 
-function addColorToPalette(colorHexCode) {
-    const paletteColorsContainer = document.getElementById("palette-colors");
+function addColorToPaletteResult(colorHexCode) {
+    const paletteResultContainer = document.getElementById("palette-result");
     const paletteColor = document.createElement("div");
     paletteColor.className = "palette-color";
     paletteColor.style.backgroundColor = colorHexCode;
     paletteColor.addEventListener("click", () => {
         paletteColor.classList.toggle("selected");
     });
-    paletteColorsContainer.appendChild(paletteColor);
+    paletteResultContainer.appendChild(paletteItem);
 }
 
 // ... (existing code)
