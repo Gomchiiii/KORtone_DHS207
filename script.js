@@ -473,7 +473,7 @@ async function downloadColorChip(event) {
     const ctx = canvas.getContext("2d");
 
     const chipWidth = 200;
-    const chipHeight = 150;
+    const chipHeight = 320;
     const textHeight = 50;
     const padding = 10;
 
@@ -495,6 +495,15 @@ async function downloadColorChip(event) {
     ctx.fillText(`RGB: ${colorRGB}`, padding, chipHeight + 40);
     ctx.fillText(`HEX: ${colorHex}`, padding, chipHeight + 55);
     ctx.fillText(`Pantone: ${colorPantone}`, padding, chipHeight + 70);
+
+    const watermarkText = "KORtone - https://gomchiiii.github.io/KORtone_DHS207/";
+    const watermarkMargin = 5;
+
+    ctx.font = "10px Arial";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "right";
+    ctx.fillText(watermarkText, chipWidth - padding, chipHeight + textHeight - watermarkMargin);
+
 
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
