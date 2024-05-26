@@ -30,26 +30,6 @@ async function readColorsFromExcel() {
 // Search functionality
 const searchForm = document.getElementById("search-form");
 const searchInput = document.getElementById("search-input");
-const searchResults = document.getElementById("search-results");
-
-searchForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const searchTerm = searchInput.value.trim().toLowerCase();
-    const colors = await readColorsFromExcel();
-    const results = colors.filter((color) =>
-        color.name.toLowerCase().includes(searchTerm) ||
-        color.alternativeNames.some((name) => name.toLowerCase().includes(searchTerm))
-    );
-    displaySearchResults(results);
-});
-
-// script.js
-
-// ... (existing code)
-
-// Search functionality
-const searchForm = document.getElementById("search-form");
-const searchInput = document.getElementById("search-input");
 const colorChooser = document.getElementById("color-chooser");
 const searchResults = document.getElementById("search-results");
 
