@@ -46,6 +46,13 @@ section {
     margin-bottom: 1rem;
 }
 
+#color-chooser {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 #search-input {
     flex-grow: 1;
     padding: 0.5rem;
