@@ -496,7 +496,7 @@ async function downloadColorChip(event) {
     ctx.fillText(`HEX: ${colorHex}`, padding, chipHeight + 55);
     ctx.fillText(`Pantone: ${colorPantone}`, padding, chipHeight + 70);
 
-    const watermarkText = "KORtone - https://gomchiiii.github.io/KORtone_DHS207/";
+    const watermarkText = "https://gomchiiii.github.io/KORtone_DHS207/";
     const watermarkMargin = 5;
 
     ctx.font = "10px Arial";
