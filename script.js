@@ -349,11 +349,25 @@ function addColorToPaletteResult(colorHexCode) {
     const paletteColors = paletteColorsContainer.querySelectorAll(".palette-color");
     const paletteResultContainer = document.getElementById("palette-result");
 
+    let isColorSelected = false;
+
     paletteColors.forEach((paletteColor) => {
         if (paletteColor.style.backgroundColor === colorHexCode) {
             paletteColor.classList.add("selected");
+            isColorSelected = true;
         }
     });
+
+    if (!isColorSelected) {
+        const paletteColor = document.createElement("div");
+        paletteColor.className = "palette-color selected";
+        paletteColor.style.backgroundColor = colorHexCode;
+        paletteColor.addEventListener("click", () => {
+            paletteColor.classList.toggle("selected");
+            updatePaletteResult();
+        });
+        paletteColorsContainer.appendChild(paletteColor);
+    }
 
     const paletteItem = document.createElement("div");
     paletteItem.className = "palette-item";
@@ -363,6 +377,7 @@ function addColorToPaletteResult(colorHexCode) {
         const correspondingPaletteColor = document.querySelector(`.palette-color[style="background-color: ${colorHexCode};"]`);
         if (correspondingPaletteColor) {
             correspondingPaletteColor.classList.remove("selected");
+            updatePaletteResult();
         }
     });
     paletteResultContainer.appendChild(paletteItem);
