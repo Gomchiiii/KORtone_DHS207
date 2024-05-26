@@ -119,7 +119,7 @@ async function showColorDetails(colorId) {
             <ul>
                 ${color.usedWith.map((usedWithColor) => `<li>${usedWithColor}</li>`).join("")}
             </ul>
-            <button class="add-to-palette" data-color="${color.hexCode}">Put this color to color palette generator</button>
+            <button class="add-to-palette" data-color="${color.hexCode}">Put this color to Palette</button>
         </div>
     `;
 
@@ -384,7 +384,17 @@ function addColorToPaletteResult(colorHexCode) {
 
 async function savePaletteAsImage() {
     const paletteResultContainer = document.getElementById("palette-result");
-    const siteNameWatermark = "KORtone - https://gomchiiii.github.io/KORtone_DHS207/"
+
+    if (paletteResultContainer.children.length === 0) {
+        alert("컬러 팔레트에 색상을 선택해 주세요.");
+        return;
+    }
+
+    const siteNameWatermark = "KoreanTraditionalColors.com";
+
+    // 이미지 생성 전 스타일 저장
+    const originalPadding = paletteResultContainer.style.padding;
+    const originalPosition = paletteResultContainer.style.position;
 
     // 팔레트 결과 컨테이너 스타일 조정
     paletteResultContainer.style.position = "relative";
@@ -395,7 +405,8 @@ async function savePaletteAsImage() {
     watermark.style.position = "absolute";
     watermark.style.bottom = "5px";
     watermark.style.right = "5px";
-    watermark.style.fontSize = "12px";
+    watermark.style.fontSize = "14px";
+    watermark.style.fontWeight = "bold";
     watermark.style.color = "black";
     watermark.textContent = siteNameWatermark;
     paletteResultContainer.appendChild(watermark);
@@ -414,6 +425,10 @@ async function savePaletteAsImage() {
 
     // 워터마크 요소 제거
     watermark.remove();
+
+    // 이미지 생성 후 스타일 복원
+    paletteResultContainer.style.padding = originalPadding;
+    paletteResultContainer.style.position = originalPosition;
 }
 
 // "이미지로 저장" 버튼 클릭 이벤트 리스너 추가
