@@ -323,6 +323,7 @@ async function createPaletteGenerator() {
         paletteColorsContainer.appendChild(paletteColor);
     });
 
+    
     generatePaletteButton.addEventListener("click", () => {
         const selectedColors = Array.from(document.querySelectorAll(".palette-color.selected"));
         const paletteColors = selectedColors.map((color) => color.style.backgroundColor);
@@ -354,18 +355,22 @@ document.addEventListener("click", (event) => {
 function addColorToPaletteResult(colorHexCode) {
     const paletteResultContainer = document.getElementById("palette-result");
     const existingPaletteItems = paletteResultContainer.querySelectorAll(".palette-item");
+    const paletteColorsContainer = document.getElementById("palette-colors");
+    const paletteColors = paletteColorsContainer.querySelectorAll(".palette-color");
 
+    paletteColors.forEach((paletteColor) => {
+        if (paletteColor.style.backgroundColor === colorHexCode) {
+            paletteColor.classList.add("selected");
+        }
+            
     const isDuplicate = Array.from(existingPaletteItems).some(
         (paletteItem) => paletteItem.style.backgroundColor === colorHexCode
     );
-
+        
     if (!isDuplicate) {
         const paletteItem = document.createElement("div");
         paletteItem.className = "palette-item";
         paletteItem.style.backgroundColor = colorHexCode;
-        paletteItem.addEventListener("click", () => {
-            paletteItem.classList.toggle("selected");
-        });
         paletteResultContainer.appendChild(paletteItem);
     }
 }
