@@ -382,7 +382,43 @@ function addColorToPaletteResult(colorHexCode) {
     }
 }
 
-// ... (existing code)
+async function savePaletteAsImage() {
+    const paletteResultContainer = document.getElementById("palette-result");
+    const siteNameWatermark = "KORtone - https://gomchiiii.github.io/KORtone_DHS207/"
+
+    // 팔레트 결과 컨테이너 스타일 조정
+    paletteResultContainer.style.position = "relative";
+    paletteResultContainer.style.padding = "20px";
+
+    // 워터마크 요소 생성
+    const watermark = document.createElement("div");
+    watermark.style.position = "absolute";
+    watermark.style.bottom = "5px";
+    watermark.style.right = "5px";
+    watermark.style.fontSize = "12px";
+    watermark.style.color = "black";
+    watermark.textContent = siteNameWatermark;
+    paletteResultContainer.appendChild(watermark);
+
+    // 팔레트 결과를 이미지로 변환
+    const canvas = await html2canvas(paletteResultContainer, {
+        backgroundColor: null,
+        scale: 2,
+    });
+
+    // 이미지 다운로드
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = "color_palette_result.png";
+    link.click();
+
+    // 워터마크 요소 제거
+    watermark.remove();
+}
+
+// "이미지로 저장" 버튼 클릭 이벤트 리스너 추가
+document.getElementById("save-palette-image").addEventListener("click", savePaletteAsImage);
+
 
 // Initialize the website
 async function init() {
