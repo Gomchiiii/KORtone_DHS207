@@ -120,6 +120,7 @@ async function showColorDetails(colorId) {
                 ${color.usedWith.map((usedWithColor) => `<li>${usedWithColor}</li>`).join("")}
             </ul>
             <button class="add-to-palette" data-color="${color.hexCode}">Put this color to Palette</button>
+            <button class="download-color-chip" data-color="${color.hexCode}" data-name="${color.name}" data-rgb="${color.rgbCode}" data-pantone="${color.pantoneCode}">Download Color Chip</button>
         </div>
     `;
 
