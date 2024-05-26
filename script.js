@@ -375,6 +375,9 @@ function addColorToPaletteResult(colorHexCode) {
         const paletteItem = document.createElement("div");
         paletteItem.className = "palette-item";
         paletteItem.style.backgroundColor = colorHexCode;
+        paletteItem.addEventListener("click", () => {
+            paletteItem.remove();
+        });
         paletteResultContainer.appendChild(paletteItem);
     }
 }
