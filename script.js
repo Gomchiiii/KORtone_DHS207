@@ -360,9 +360,9 @@ function addColorToPaletteResult(colorHexCode) {
 
     paletteColors.forEach((paletteColor) => {
         if (paletteColor.style.backgroundColor === colorHexCode) {
-            paletteColor.classList.toggle("selected");
+            paletteColor.classList.add("selected");
         }
-    }
+    });
             
     const isDuplicate = Array.from(existingPaletteItems).some(
         (paletteItem) => paletteItem.style.backgroundColor === colorHexCode
