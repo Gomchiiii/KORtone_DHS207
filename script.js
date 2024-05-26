@@ -337,6 +337,9 @@ async function createPaletteGenerator() {
                 const paletteItem = document.createElement("div");
                 paletteItem.className = "palette-item";
                 paletteItem.style.backgroundColor = color;
+                paletteItem.addEventListener("click", () => {
+                    paletteItem.remove();
+                });
                 paletteResultContainer.appendChild(paletteItem);
             }
         });
