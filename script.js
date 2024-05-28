@@ -207,6 +207,19 @@ async function createColorGraph() {
             navigationButtons: true,
             keyboard: true,
         },
+        physics: {
+            stabilization: {
+              enabled: true,
+              iterations: 1000,
+              updateInterval: 100,
+            },
+            solver: 'barnesHut',
+            barnesHut: {
+              gravitationalConstant: -8000,
+              springConstant: 0.04,
+              damping: 0.09,
+            },
+          },
     };
 
     // Initialize the network
