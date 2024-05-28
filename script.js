@@ -19,7 +19,7 @@ async function readColorsFromExcel() {
             hexCode: hexCode,
             rgbCode: rgbCode,
             pantoneCode : pantoneCode,
-            group: similarColors,
+            similarColors: similarColors ? similarColors.split(";") : [],
             usedWith: usedWith ? usedWith.split(";") : [],
         });
     }
@@ -45,6 +45,15 @@ searchForm.addEventListener("submit", async (e) => {
             color.alternativeNames.some((name) => name.toLowerCase().includes(searchTerm))
         );
         displaySearchResults(results);
+    } else if (selectedColor) {
+        const selectedColorRGB = hexToRgb(selectedColor);
+        const similarColors = colors.map((color) => ({
+            ...color,
+            distance: colorDistance(selectedColorRGB, hexToRgb(color.hexCode)),
+        }));
+        similarColors.sort((a, b) => a.distance - b.distance);
+        const topSimilarColors = similarColors.slice(0, 10);
+        displaySearchResults(topSimilarColors);
     } else {
         searchResults.innerHTML = "";
     }
@@ -143,13 +152,18 @@ async function createColorGraph() {
         label: color.name,
         title: color.description,
         color: color.hexCode,
-        group: color.group,
     }));
 
     // Create edges for similar colors and used with colors
 // Create edges for similar colors and used with colors
     const edges = [];
     colors.forEach((color) => {
+        color.similarColors.forEach((similarColorName) => {
+            const similarColor = colors.find((c) => c.name === similarColorName);
+            if (similarColor && color.name !== similarColor.name) { // 자기 자신인 경우 제외
+            edges.push({ from: color.id, to: similarColor.id, label: "유사색" });
+            }
+        });
         color.usedWith.forEach((usedWithColorName) => {
             const usedWithColor = colors.find((c) => c.name === usedWithColorName);
             if (usedWithColor) {
@@ -194,46 +208,6 @@ async function createColorGraph() {
             navigationButtons: true,
             keyboard: true,
         },
-
-        groups: {
-            // 그룹 스타일 정의
-            '황-유황계': {
-              shape: 'circle',
-              color: {
-                background: 'rgba(255, 0, 0, 0.2)',
-                border: 'yellow',
-              },
-            },
-            '청-벽-녹계': {
-              shape: 'box',
-              color: {
-                background: 'rgba(0, 255, 0, 0.2)',
-                border: 'green',
-              },
-            },
-            '백-흑계': {
-                shape: 'box',
-                color: {
-                  background: 'rgba(0, 255, 0, 0.2)',
-                  border: 'black',
-                },
-            },
-            '자계': {
-            shape: 'box',
-            color: {
-                background: 'rgba(0, 255, 0, 0.2)',
-                border: 'purple',
-                },
-            },
-            '적-홍계': {
-            shape: 'box',
-            color: {
-                background: 'rgba(0, 255, 0, 0.2)',
-                border: 'red',
-                },
-            },
-            // ... (다른 그룹 스타일 정의)
-          },
         // //berneshut
         // physics: {
         //     stabilization: {
@@ -261,24 +235,24 @@ async function createColorGraph() {
         //       sortMethod: 'undirected',
         //     },
         //   },
-        // clusterNodeProperties: {
-        //     borderWidth: 3,
-        //     borderWidthSelected: 6,
-        //     color: {
-        //       background: 'rgba(0, 0, 0, 0.1)',
-        //       border: 'rgba(0, 0, 0, 0.3)',
-        //       highlight: {
-        //         background: 'rgba(0, 0, 0, 0.2)',
-        //         border: 'rgba(0, 0, 0, 0.4)',
-        //       },
-        //     },
-        //     font: {
-        //       size: 16,
-        //     },
-        //     labelHighlightBold: true,
-        //     shape: 'ellipse',
-        //     size: 50,
-        //   },
+        clusterNodeProperties: {
+            borderWidth: 3,
+            borderWidthSelected: 6,
+            color: {
+              background: 'rgba(0, 0, 0, 0.1)',
+              border: 'rgba(0, 0, 0, 0.3)',
+              highlight: {
+                background: 'rgba(0, 0, 0, 0.2)',
+                border: 'rgba(0, 0, 0, 0.4)',
+              },
+            },
+            font: {
+              size: 16,
+            },
+            labelHighlightBold: true,
+            shape: 'ellipse',
+            size: 100,
+          },
         };
 
     // Initialize the network
