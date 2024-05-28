@@ -207,18 +207,36 @@ async function createColorGraph() {
             navigationButtons: true,
             keyboard: true,
         },
-        physics: {
-            stabilization: {
-              enabled: true,
-              iterations: 1000,
-              updateInterval: 100,
+        // physics: {
+        //     stabilization: {
+        //       enabled: true,
+        //       iterations: 1000,
+        //       updateInterval: 100,
+        //     },
+        //     solver: 'barnesHut',
+        //     barnesHut: {
+        //       gravitationalConstant: -8000,
+        //       springConstant: 0.04,
+        //       damping: 0.09,
+        //     },
+        //   },
+        clusterNodeProperties: {
+            borderWidth: 3,
+            borderWidthSelected: 6,
+            color: {
+              background: 'rgba(0, 0, 0, 0.1)',
+              border: 'rgba(0, 0, 0, 0.3)',
+              highlight: {
+                background: 'rgba(0, 0, 0, 0.2)',
+                border: 'rgba(0, 0, 0, 0.4)',
+              },
             },
-            solver: 'barnesHut',
-            barnesHut: {
-              gravitationalConstant: -8000,
-              springConstant: 0.04,
-              damping: 0.09,
+            font: {
+              size: 16,
             },
+            labelHighlightBold: true,
+            shape: 'ellipse',
+            size: 50,
           },
     };
 
