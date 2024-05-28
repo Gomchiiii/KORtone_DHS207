@@ -9,6 +9,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" />
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        #color-space { width: 100%; height: 400px; }
+    </style>
 </head>
 <body>
     <div class="notice">
@@ -46,6 +50,16 @@
         <div id="color-graph"></div>
     </section>
     
+    <section id="ryb-color-space">
+        <h2>RYB Color Space</h2>
+        <div id="color-space"></div>
+        <div id="color-info">
+          <p>Selected Color:</p>
+          <div id="selected-color"></div>
+          <p>RYB Values: <span id="ryb-values"></span></p>
+          <p>RGB Values: <span id="rgb-values"></span></p>
+        </div>
+      </section>
 
     <section id="catalog">
         <h2>색 카탈로그</h2>
