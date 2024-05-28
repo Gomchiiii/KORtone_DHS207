@@ -45,15 +45,6 @@ searchForm.addEventListener("submit", async (e) => {
             color.alternativeNames.some((name) => name.toLowerCase().includes(searchTerm))
         );
         displaySearchResults(results);
-    } else if (selectedColor) {
-        const selectedColorRGB = hexToRgb(selectedColor);
-        const similarColors = colors.map((color) => ({
-            ...color,
-            distance: colorDistance(selectedColorRGB, hexToRgb(color.hexCode)),
-        }));
-        similarColors.sort((a, b) => a.distance - b.distance);
-        const topSimilarColors = similarColors.slice(0, 10);
-        displaySearchResults(topSimilarColors);
     } else {
         searchResults.innerHTML = "";
     }
@@ -159,12 +150,6 @@ async function createColorGraph() {
 // Create edges for similar colors and used with colors
     const edges = [];
     colors.forEach((color) => {
-        color.similarColors.forEach((similarColorName) => {
-            const similarColor = colors.find((c) => c.name === similarColorName);
-            if (similarColor && color.name !== similarColor.name) { // 자기 자신인 경우 제외
-            edges.push({ from: color.id, to: similarColor.id, label: "유사색" });
-            }
-        });
         color.usedWith.forEach((usedWithColorName) => {
             const usedWithColor = colors.find((c) => c.name === usedWithColorName);
             if (usedWithColor) {
