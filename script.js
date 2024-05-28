@@ -518,14 +518,12 @@ document.addEventListener("click", (event) => {
     }
 });
 
-
-// RYB Color Space
-  
-  // Initialize the website
-  async function init() {
+// Initialize the website
+async function init() {
     await createColorGraph();
     await createColorCatalog();
     createReferencesSection();
     createPaletteGenerator();
-  }
-  
+}
+
+init();
