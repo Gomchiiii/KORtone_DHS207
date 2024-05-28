@@ -19,7 +19,7 @@ async function readColorsFromExcel() {
             hexCode: hexCode,
             rgbCode: rgbCode,
             pantoneCode : pantoneCode,
-            similarColors: similarColors ? similarColors.split(";") : [],
+            group: similarColors,
             usedWith: usedWith ? usedWith.split(";") : [],
         });
     }
@@ -152,6 +152,7 @@ async function createColorGraph() {
         label: color.name,
         title: color.description,
         color: color.hexCode,
+        group: color.group,
     }));
 
     // Create edges for similar colors and used with colors
@@ -208,6 +209,46 @@ async function createColorGraph() {
             navigationButtons: true,
             keyboard: true,
         },
+
+        groups: {
+            // 그룹 스타일 정의
+            '황-유황계': {
+              shape: 'circle',
+              color: {
+                background: 'rgba(255, 0, 0, 0.2)',
+                border: 'yellow',
+              },
+            },
+            '청-벽-녹계': {
+              shape: 'box',
+              color: {
+                background: 'rgba(0, 255, 0, 0.2)',
+                border: 'green',
+              },
+            },
+            '백-흑계': {
+                shape: 'box',
+                color: {
+                  background: 'rgba(0, 255, 0, 0.2)',
+                  border: 'black',
+                },
+            },
+            '자계': {
+            shape: 'box',
+            color: {
+                background: 'rgba(0, 255, 0, 0.2)',
+                border: 'purple',
+                },
+            },
+            '적-홍계': {
+            shape: 'box',
+            color: {
+                background: 'rgba(0, 255, 0, 0.2)',
+                border: 'red',
+                },
+            },
+            // ... (다른 그룹 스타일 정의)
+          },
         // //berneshut
         // physics: {
         //     stabilization: {
@@ -235,24 +276,24 @@ async function createColorGraph() {
         //       sortMethod: 'undirected',
         //     },
         //   },
-        clusterNodeProperties: {
-            borderWidth: 3,
-            borderWidthSelected: 6,
-            color: {
-              background: 'rgba(0, 0, 0, 0.1)',
-              border: 'rgba(0, 0, 0, 0.3)',
-              highlight: {
-                background: 'rgba(0, 0, 0, 0.2)',
-                border: 'rgba(0, 0, 0, 0.4)',
-              },
-            },
-            font: {
-              size: 16,
-            },
-            labelHighlightBold: true,
-            shape: 'ellipse',
-            size: 50,
-          },
+        // clusterNodeProperties: {
+        //     borderWidth: 3,
+        //     borderWidthSelected: 6,
+        //     color: {
+        //       background: 'rgba(0, 0, 0, 0.1)',
+        //       border: 'rgba(0, 0, 0, 0.3)',
+        //       highlight: {
+        //         background: 'rgba(0, 0, 0, 0.2)',
+        //         border: 'rgba(0, 0, 0, 0.4)',
+        //       },
+        //     },
+        //     font: {
+        //       size: 16,
+        //     },
+        //     labelHighlightBold: true,
+        //     shape: 'ellipse',
+        //     size: 50,
+        //   },
         };
 
     // Initialize the network
