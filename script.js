@@ -207,6 +207,7 @@ async function createColorGraph() {
             navigationButtons: true,
             keyboard: true,
         },
+        //berneshut
         // physics: {
         //     stabilization: {
         //       enabled: true,
@@ -220,23 +221,38 @@ async function createColorGraph() {
         //       damping: 0.09,
         //     },
         //   },
-        clusterNodeProperties: {
-            borderWidth: 3,
-            borderWidthSelected: 6,
-            color: {
-              background: 'rgba(0, 0, 0, 0.1)',
-              border: 'rgba(0, 0, 0, 0.3)',
-              highlight: {
-                background: 'rgba(0, 0, 0, 0.2)',
-                border: 'rgba(0, 0, 0, 0.4)',
-              },
+        //cluster
+        // clusterNodeProperties: {
+        //     borderWidth: 3,
+        //     borderWidthSelected: 6,
+        //     color: {
+        //       background: 'rgba(0, 0, 0, 0.1)',
+        //       border: 'rgba(0, 0, 0, 0.3)',
+        //       highlight: {
+        //         background: 'rgba(0, 0, 0, 0.2)',
+        //         border: 'rgba(0, 0, 0, 0.4)',
+        //       },
+        //     },
+        //     font: {
+        //       size: 16,
+        //     },
+        //     labelHighlightBold: true,
+        //     shape: 'ellipse',
+        //     size: 50,
+        //   },
+        //layout
+        layout: {
+            hierarchical: {
+              enabled: true,
+              levelSeparation: 150,
+              nodeSpacing: 100,
+              treeSpacing: 200,
+              blockShifting: true,
+              edgeMinimization: true,
+              parentCentralization: true,
+              direction: 'UD',
+              sortMethod: 'directed',
             },
-            font: {
-              size: 16,
-            },
-            labelHighlightBold: true,
-            shape: 'ellipse',
-            size: 50,
           },
     };
 
