@@ -155,18 +155,19 @@ async function createColorGraph() {
     }));
 
     // Create edges for similar colors and used with colors
+// Create edges for similar colors and used with colors
     const edges = [];
     colors.forEach((color) => {
         color.similarColors.forEach((similarColorName) => {
             const similarColor = colors.find((c) => c.name === similarColorName);
-            if (similarColor) {
-                edges.push({ from: color.id, to: similarColor.id, label: "유사색" });
+            if (similarColor && color.name !== similarColor.name) { // 자기 자신인 경우 제외
+            edges.push({ from: color.id, to: similarColor.id, label: "유사색" });
             }
         });
         color.usedWith.forEach((usedWithColorName) => {
             const usedWithColor = colors.find((c) => c.name === usedWithColorName);
             if (usedWithColor) {
-                edges.push({ from: color.id, to: usedWithColor.id, label: "함께 사용" });
+            edges.push({ from: color.id, to: usedWithColor.id, label: "함께 사용" });
             }
         });
     });
