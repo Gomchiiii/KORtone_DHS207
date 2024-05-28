@@ -222,23 +222,42 @@ async function createColorGraph() {
         //       damping: 0.09,
         //     },
         // }, // too heavy 
-        layout: {
-            hierarchical: {
-              enabled: true,
-              levelSeparation: 150,
-              nodeSpacing: 100,
-              treeSpacing: 200,
-              blockShifting: true,
-              edgeMinimization: true,
-              parentCentralization: true,
-              direction: 'UD',
-              sortMethod: 'undirected',
+        // layout: {
+        //     hierarchical: {
+        //       enabled: true,
+        //       levelSeparation: 150,
+        //       nodeSpacing: 100,
+        //       treeSpacing: 200,
+        //       blockShifting: true,
+        //       edgeMinimization: true,
+        //       parentCentralization: true,
+        //       direction: 'UD',
+        //       sortMethod: 'undirected',
+        //     },
+        //   },
+        clusterNodeProperties: {
+            borderWidth: 3,
+            borderWidthSelected: 6,
+            color: {
+              background: 'rgba(0, 0, 0, 0.1)',
+              border: 'rgba(0, 0, 0, 0.3)',
+              highlight: {
+                background: 'rgba(0, 0, 0, 0.2)',
+                border: 'rgba(0, 0, 0, 0.4)',
+              },
             },
+            font: {
+              size: 16,
+            },
+            labelHighlightBold: true,
+            shape: 'ellipse',
+            size: 50,
           },
-    };
+        };
 
     // Initialize the network
     const network = new vis.Network(graphContainer, data, options);
+    //network.cluster(options);
 
     // Handle click events on nodes
     network.on("click", (params) => {
