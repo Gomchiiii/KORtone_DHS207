@@ -208,33 +208,33 @@ async function createColorGraph() {
             navigationButtons: true,
             keyboard: true,
         },
-        //berneshut
-        physics: {
-            stabilization: {
-              enabled: true,
-              iterations: 1000,
-              updateInterval: 100,
-            },
-            solver: 'barnesHut',
-            barnesHut: {
-              gravitationalConstant: -8000,
-              springConstant: 0.04,
-              damping: 0.09,
-            },
-        },
-        // layout: {
-        //     hierarchical: {
+        // //berneshut
+        // physics: {
+        //     stabilization: {
         //       enabled: true,
-        //       levelSeparation: 150,
-        //       nodeSpacing: 100,
-        //       treeSpacing: 200,
-        //       blockShifting: true,
-        //       edgeMinimization: true,
-        //       parentCentralization: true,
-        //       direction: 'UD',
-        //       sortMethod: 'directed',
+        //       iterations: 1000,
+        //       updateInterval: 100,
         //     },
-        //   },
+        //     solver: 'barnesHut',
+        //     barnesHut: {
+        //       gravitationalConstant: -8000,
+        //       springConstant: 0.04,
+        //       damping: 0.09,
+        //     },
+        // }, // too heavy 
+        layout: {
+            hierarchical: {
+              enabled: true,
+              levelSeparation: 150,
+              nodeSpacing: 100,
+              treeSpacing: 200,
+              blockShifting: true,
+              edgeMinimization: true,
+              parentCentralization: true,
+              direction: 'UD',
+              sortMethod: 'undirected',
+            },
+          },
     };
 
     // Initialize the network
