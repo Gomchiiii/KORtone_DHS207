@@ -49,3 +49,32 @@ function animate() {
 animate();
 
 // TODO: Add color selection and display logic
+
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+renderer.domElement.addEventListener('click', onMouseClick, false);
+
+function onMouseClick(event) {
+  mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+  mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObject(mesh);
+
+  if (intersects.length > 0) {
+    const selectedColor = intersects[0].face.color;
+    displaySelectedColor(selectedColor);
+  }
+}
+
+function displaySelectedColor(color) {
+  const selectedColorElement = document.getElementById('selected-color');
+  selectedColorElement.style.backgroundColor = `rgb(${color.r * 255}, ${color.g * 255}, ${color.b * 255})`;
+
+  const rybValues = `R: ${color.r.toFixed(2)}, Y: ${color.g.toFixed(2)}, B: ${color.b.toFixed(2)}`;
+  document.getElementById('ryb-values').textContent = rybValues;
+
+  const rgbValues = `R: ${Math.round(color.r * 255)}, G: ${Math.round(color.g * 255)}, B: ${Math.round(color.b * 255)}`;
+  document.getElementById('rgb-values').textContent = rgbValues;
+}
