@@ -499,7 +499,7 @@ function sortPaletteResult() {
 }
 
 // "Sort Palette" 버튼 클릭 이벤트 리스너 추가
-document.getElementById("sort-palette").addEventListener("click", sortPaletteResult);
+// document.getElementById("sort-palette").addEventListener("click", sortPaletteResult);
 
 async function downloadColorChip(event) {
     const button = event.target;
