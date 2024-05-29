@@ -112,13 +112,25 @@ async function showColorDetails(colorId) {
             <p><strong>RGB Code:</strong> ${color.rgbCode}</p>
             <p><strong>Pantone Code:</strong> ${color.pantoneCode}</p>
             <h3>Similar Colors:</h3>
-            <ul>
-                ${color.similarColors.map((similarColor) => `<li>${similarColor}</li>`).join("")}
-            </ul>
+            <div class="color-grid">
+                ${color.similarColors.map((similarColorName) => {
+                    const similarColor = colors.find((c) => c.name === similarColorName);
+                    if (similarColor) {
+                        return `<div class="color-block" style="background-color: ${similarColor.hexCode};" title="${similarColor.name}"></div>`;
+                    }
+                    return '';
+                }).join("")}
+            </div>
             <h3>Used With:</h3>
-            <ul>
-                ${color.usedWith.map((usedWithColor) => `<li>${usedWithColor}</li>`).join("")}
-            </ul>
+            <div class="color-grid">
+                ${color.usedWith.map((usedWithColorName) => {
+                    const usedWithColor = colors.find((c) => c.name === usedWithColorName);
+                    if (usedWithColor) {
+                        return `<div class="color-block" style="background-color: ${usedWithColor.hexCode};" title="${usedWithColor.name}"></div>`;
+                    }
+                    return '';
+                }).join("")}
+            </div>
             <button class="add-to-palette" data-color="${color.hexCode}">Put this color to Palette</button>
             <button class="download-color-chip" data-color="${color.hexCode}" data-name="${color.name}" data-rgb="${color.rgbCode}" data-pantone="${color.pantoneCode}">Download Color Chip</button>
         </div>
@@ -261,8 +273,6 @@ async function createColorCatalog() {
         colorItem.innerHTML = `
             <div class="color-swatch" style="background-color: ${color.hexCode}"></div>
             <h3>${color.name}</h3>
-            <p>${color.alternativeNames.join(", ")}</p>
-            <p>${color.description}</p>
             <p>HEX: ${color.hexCode}</p>
             <p>RGB: ${color.rgbCode}</p>
             <p>Pantone: ${color.pantoneCode}</p>
