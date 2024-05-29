@@ -182,7 +182,7 @@ async function createColorGraph() {
     const options = {
         nodes: {
             shape: "dot",
-            size: 20,
+            size: 25,
             font: {
                 size: 14,
                 color: "#ffffff",
@@ -190,7 +190,7 @@ async function createColorGraph() {
             borderWidth: 2,
         },
         edges: {
-            width: 2,
+            width: 1,
             length: 200,
             font: {
                 size: 12,
@@ -227,7 +227,7 @@ async function createColorGraph() {
               enabled: true,
               levelSeparation: 150,
               nodeSpacing: 100,
-              treeSpacing: 200,
+              treeSpacing: 100,
               blockShifting: true,
               edgeMinimization: true,
               parentCentralization: true,
