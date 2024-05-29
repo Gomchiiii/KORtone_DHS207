@@ -109,13 +109,13 @@ section {
 #palette-colors {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 1rem;
 }
 
 .palette-color {
-  width: 2vw;
-  height: 2vw;
+  width: 3vw;
+  height: 3vw;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
   border: 1px solid #ccc;
