@@ -224,17 +224,17 @@ async function createColorGraph() {
         // }, // too heavy 
         layout: {
             hierarchical: {
-              enabled: true,
-              levelSeparation: 150,
-              nodeSpacing: 100,
-              treeSpacing: 100,
-              blockShifting: true,
-              edgeMinimization: true,
-              parentCentralization: true,
-              direction: 'UD',
-              sortMethod: 'directed',
+                enabled: true,
+                levelSeparation: 100, // 노드 간 수직 거리 조정
+                nodeSpacing: 50, // 노드 간 수평 거리 조정
+                treeSpacing: 100,
+                blockShifting: true,
+                edgeMinimization: true,
+                parentCentralization: true,
+                direction: 'LR', // 그래프를 가로 방향으로 설정
+                sortMethod: 'directed',
+                },
             },
-          },
         };
 
     // Initialize the network
