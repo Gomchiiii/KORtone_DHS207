@@ -170,12 +170,12 @@ async function createColorGraph() {
 // Create edges for similar colors and used with colors
     const edges = [];
     colors.forEach((color) => {
-        color.similarColors.forEach((similarColorName) => {
-            const similarColor = colors.find((c) => c.name === similarColorName);
-            if (similarColor && color.name !== similarColor.name) { // 자기 자신인 경우 제외
-            edges.push({ from: color.id, to: similarColor.id, label: "유사색" });
-            }
-        });
+        // color.similarColors.forEach((similarColorName) => {
+        //     const similarColor = colors.find((c) => c.name === similarColorName);
+        //     if (similarColor && color.name !== similarColor.name) { // 자기 자신인 경우 제외
+        //     edges.push({ from: color.id, to: similarColor.id, label: "유사색" });
+        //     }
+        // });
         color.usedWith.forEach((usedWithColorName) => {
             const usedWithColor = colors.find((c) => c.name === usedWithColorName);
             if (usedWithColor) {
@@ -309,19 +309,23 @@ function createReferencesSection() {
     const referencesContainer = document.getElementById("references-container");
     const references = [
         {
-            text: "Kim, J. (2022). Traditional Korean colors: A historical perspective. Journal of Korean Art and Culture, 15(3), 123-145.",
-            url: "https://example.com/kim-2022"
+            text: "lee, J. (2012). Traditional Korean colors",
+            url: "https://www.iljinsa.com/shop/goods/goods_view.php?goodsno=181"
         },
         {
             text: "Lee, S., & Park, H. (2021). Color symbolism in Korean traditional art. Korean Journal of Color Research, 8(2), 56-78.",
             // No URL provided for this reference
         },
         {
-            text: "Park, M. (2020). The meaning of colors in Korean culture. Seoul: Korean Publishing House.",
+            text: "JiYoung Kim (2013). Standard Color Space for Color Communication of Korean Traditional Costume. 한국디자인포럼,(38), 157-163.",
             // No URL provided for this reference
         },
         {
-            text: "Park, M. (2020). The meaning of colors in Korean culture. Seoul: Korean Pub한국어도되나?체크.//기lishing House.",
+            text: "Joo Deh-Won (2021). Analysis of Pantone Coated Color Guide for Korean Traditional Standard Colors of National Museum of Modern and Contemporary Art (MMCA). 한국디자인리서치학회, 6(1), 64-75.",
+            // No URL provided for this reference
+        },
+        {
+            text: "국립현대미술관. 한국전통표준색명 및 색상. 경기도: 국립현대미술관, 1992.",
             // No URL provided for this reference
         },
         // Add more references as needed
