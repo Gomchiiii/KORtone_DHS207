@@ -1,7 +1,7 @@
 /* style.css */
 
 body {
-    font-family: 'Helvetica', Arial, sans-serif;
+    font-family: 'Nanum Myeongjo', serif;
     margin: 0;
     padding: 1rem;
     background-color: var(--background-color);
@@ -15,6 +15,7 @@ header {
 }
 
 h1 {
+    font-family: 'Helvetica', Arial, sans-serif;
     margin: 0;
     font-weight: bold;
     font-size: 5em;
@@ -41,21 +42,25 @@ main {
 }
 
 section {
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
 }
 
 .section-description {
-    margin-left: 1rem;
     text-align: left;
     font-family: 'Nanum Myeongjo', serif;
-    font-size: 1rem;
+    font-size: 1.0rem;
+    letter-spacing: 0.05rem;
+    line-height: 1.4rem;
 }
 
 .section-description-anotaion {
     margin-left: 1rem;
     text-align: left;
     font-family: 'Nanum Myeongjo', serif;
-    font-size: 1rem
+    font-weight: bold;
+    font-size: 0.6rem
+    letter-spacing: 0.05rem;
+    line-height: 1.2rem;
 }
 
 #search-form {
@@ -192,6 +197,7 @@ button {
     width: 100%;
     height: 500px;
     border: 1px solid #ccc;
+    margin-bottom: 2rem;
 }
 
 #color-catalog {
