@@ -40,32 +40,7 @@ geometry.faces[5].vertexColors = [new THREE.Color(0x000000), new THREE.Color(0xf
 
 // Position the camera and render the scene
 camera.position.z = 5;
-function animate() {
-  requestAnimationFrame(animate);
-  mesh.rotation.x += 0.01;
-  mesh.rotation.y += 0.01;
-  renderer.render(scene, camera);
-}
-
-// TODO: Add color selection and display logic
-
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-
-renderer.domElement.addEventListener('click', onMouseClick, false);
-
-function onMouseClick(event) {
-  mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
-  mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
-
-  raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObject(mesh);
-
-  if (intersects.length > 0) {
-    const selectedColor = intersects[0].face.color;
-    displaySelectedColor(selectedColor);
-  }
-}
+// ... (이전 코드 생략) ...
 
 function displaySelectedColor(color) {
   const selectedColorElement = document.getElementById('selected-color');
@@ -76,6 +51,67 @@ function displaySelectedColor(color) {
 
   const rgbValues = `R: ${Math.round(color.r * 255)}, G: ${Math.round(color.g * 255)}, B: ${Math.round(color.b * 255)}`;
   document.getElementById('rgb-values').textContent = rgbValues;
+}
+
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2(); // mouse 변수 정의
+
+let isRotating = true;
+let isZoomedIn = false;
+const originalCameraPosition = new THREE.Vector3().copy(camera.position);
+const zoomedInCameraPosition = new THREE.Vector3().copy(camera.position).multiplyScalar(0.5);
+
+function onMouseClick(event) {
+  mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+  mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObject(mesh);
+
+  if (intersects.length > 0) {
+    const selectedColor = intersects[0].face.vertexColors[0];
+    displaySelectedColor(selectedColor);
+
+    isRotating = false;
+
+    if (!isZoomedIn) {
+      isZoomedIn = true;
+      zoomCamera(zoomedInCameraPosition);
+    }
+  }
+}
+
+function zoomCamera(targetPosition) {
+  const tween = new TWEEN.Tween(camera.position)
+    .to(targetPosition, 500)
+    .easing(TWEEN.Easing.Quadratic.Out)
+    .onComplete(() => {
+      if (!isZoomedIn) {
+        isRotating = true;
+      }
+    })
+    .start();
+}
+
+renderer.domElement.addEventListener('click', onMouseClick, false);
+renderer.domElement.addEventListener('dblclick', onMouseDoubleClick, false);
+
+function onMouseDoubleClick() {
+  isRotating = true;
+  isZoomedIn = false;
+  zoomCamera(originalCameraPosition);
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  if (isRotating) {
+    mesh.rotation.x += 0.01;
+    mesh.rotation.y += 0.01;
+  }
+
+  TWEEN.update();
+  renderer.render(scene, camera);
 }
 
 animate();
