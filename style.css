@@ -44,6 +44,20 @@ section {
     margin-bottom: 2rem;
 }
 
+.section-description {
+    margin-left: 1rem;
+    text-align: left;
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 1rem;
+}
+
+.section-description-anotaion {
+    margin-left: 1rem;
+    text-align: left;
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 1rem
+}
+
 #search-form {
     display: flex;
     margin-bottom: 1rem;
