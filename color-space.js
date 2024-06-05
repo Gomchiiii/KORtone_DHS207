@@ -46,7 +46,6 @@ function animate() {
   mesh.rotation.y += 0.01;
   renderer.render(scene, camera);
 }
-animate();
 
 // TODO: Add color selection and display logic
 
@@ -78,3 +77,5 @@ function displaySelectedColor(color) {
   const rgbValues = `R: ${Math.round(color.r * 255)}, G: ${Math.round(color.g * 255)}, B: ${Math.round(color.b * 255)}`;
   document.getElementById('rgb-values').textContent = rgbValues;
 }
+
+animate();
