@@ -28,68 +28,8 @@ async function readColorsFromExcel() {
     return colors;
 }
 
-async function updateColorNames(language) {
-    const colors = await readColorsFromExcel();
-    const colorNameElements = document.querySelectorAll(".search-result-info h3, .modal h2, .color-item h3");
-
-    colorNameElements.forEach((element) => {
-        const colorId = element.closest("[data-color-id]").getAttribute("data-color-id");
-        const color = colors.find((color) => color.id === Number(colorId));
-
-        if (color) {
-            element.textContent = language === "en" ? color.englishName : color.name;
-        }
-    });
-}
 
 // Search functionality
-const searchForm = document.getElementById("search-form");
-const searchInput = document.getElementById("search-input");
-const colorChooser = document.getElementById("color-chooser");
-const searchResults = document.getElementById("search-results");
-
-searchForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const searchTerm = searchInput.value.trim().toLowerCase();
-    const selectedColor = colorChooser.value;
-    const colors = await readColorsFromExcel();
-
-    if (searchTerm) {
-        const results = colors.filter((color) =>
-            color.name.toLowerCase().includes(searchTerm) ||
-            color.alternativeNames.some((name) => name.toLowerCase().includes(searchTerm))
-        );
-        displaySearchResults(results);
-    } else if (selectedColor) {
-        const selectedColorRGB = hexToRgb(selectedColor);
-        const similarColors = colors.map((color) => ({
-            ...color,
-            distance: colorDistance(selectedColorRGB, hexToRgb(color.hexCode)),
-        }));
-        similarColors.sort((a, b) => a.distance - b.distance);
-        const topSimilarColors = similarColors.slice(0, 10);
-        displaySearchResults(topSimilarColors);
-    } else {
-        searchResults.innerHTML = "";
-    }
-});
-
-
-// Helper functions for color searching
-function hexToRgb(hex) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return { r, g, b };
-}
-
-function colorDistance(color1, color2) {
-    const rDiff = color1.r - color2.r;
-    const gDiff = color1.g - color2.g;
-    const bDiff = color1.b - color2.b;
-    return Math.sqrt(rDiff * rDiff + gDiff * gDiff + bDiff * bDiff);
-}
-
 function displaySearchResults(results) {
     searchResults.innerHTML = "";
     results.forEach((color) => {
@@ -106,7 +46,6 @@ function displaySearchResults(results) {
         searchResults.appendChild(resultItem);
     });
 }
-
 
 // Color details functionality
 async function showColorDetails(colorId) {
@@ -152,25 +91,10 @@ async function showColorDetails(colorId) {
         </div>
     `;
 
-    // Add event listener to color blocks
+    modal.querySelector(".close").addEventListener("click", handleModalClose);
+    modal.addEventListener("click", handleModalOutsideClick);
     modal.querySelectorAll(".color-block").forEach((block) => {
-        block.addEventListener("click", () => {
-            const colorId = block.getAttribute("data-color-id");
-            modal.remove();
-            showColorDetails(Number(colorId));
-        });
-    });
-
-
-    // Add event listener to close the modal when clicking on the close button or outside the modal content
-    const closeModal = () => {
-        modal.remove();
-    };
-    modal.querySelector(".close").addEventListener("click", closeModal);
-    modal.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            closeModal();
-        }
+        block.addEventListener("click", handleColorBlockClick);
     });
 
     // Append the modal to the document body
@@ -308,27 +232,6 @@ async function createColorCatalog() {
 }
 
 
-// Browser notice functionality
-function isSamsungBrowser() {
-    const userAgent = navigator.userAgent.toLowerCase();
-    return userAgent.includes('samsungbrowser');
-}
-
-
-function showNotice() {
-    const notice = document.querySelector('.notice');
-    if (isSamsungBrowser()) {
-        notice.style.display = 'block';
-    } 
-}
-
-function hideNotice() {
-    const notice = document.querySelector('.notice');
-    notice.style.display = 'none';
-}
-
-document.addEventListener('DOMContentLoaded', showNotice);
-document.querySelector('.close-notice').addEventListener('click', hideNotice);
 
 function createReferencesSection() {
     const referencesContainer = document.getElementById("references-container");
@@ -374,6 +277,7 @@ function createReferencesSection() {
     });
 }
 
+
 // Color palette generator functionality
 async function createPaletteGenerator() {
     const paletteColorsContainer = document.getElementById("palette-colors");
@@ -385,10 +289,7 @@ async function createPaletteGenerator() {
         const paletteColor = document.createElement("div");
         paletteColor.className = "palette-color";
         paletteColor.style.backgroundColor = color.hexCode;
-        paletteColor.addEventListener("click", () => {
-            paletteColor.classList.toggle("selected");
-            updatePaletteResult();
-        });
+        paletteColor.addEventListener("click", handlePaletteColorClick);
         paletteColorsContainer.appendChild(paletteColor);
     });
 
@@ -401,13 +302,7 @@ async function createPaletteGenerator() {
             const paletteItem = document.createElement("div");
             paletteItem.className = "palette-item";
             paletteItem.style.backgroundColor = color;
-            paletteItem.addEventListener("click", () => {
-                paletteItem.remove();
-                const correspondingPaletteColor = document.querySelector(`.palette-color[style="background-color: ${color};"]`);
-                if (correspondingPaletteColor) {
-                    correspondingPaletteColor.classList.remove("selected");
-                }
-            });
+            paletteItem.addEventListener("click", handlePaletteItemClick);
             paletteResultContainer.appendChild(paletteItem);
         });
     }
@@ -507,8 +402,6 @@ async function savePaletteAsImage() {
     paletteResultContainer.style.position = originalPosition;
 }
 
-// "이미지로 저장" 버튼 클릭 이벤트 리스너 추가
-document.getElementById("save-palette-image").addEventListener("click", savePaletteAsImage);
 
 function sortPaletteResult() {
     const paletteColorsContainer = document.getElementById("palette-colors");
@@ -579,19 +472,36 @@ async function downloadColorChip(event) {
     link.click();
 }
 
-// "Download Color Chip" 버튼 클릭 이벤트 리스너 등록
-document.addEventListener("click", (event) => {
-    if (event.target.classList.contains("download-color-chip")) {
-        downloadColorChip(event);
-    }
-});
+async function updateColorNames(language) {
+    const colors = await readColorsFromExcel();
+    const colorNameElements = document.querySelectorAll(".search-result-info h3, .modal h2, .color-item h3");
+
+    colorNameElements.forEach((element) => {
+        const colorId = element.closest("[data-color-id]").getAttribute("data-color-id");
+        const color = colors.find((color) => color.id === Number(colorId));
+
+        if (color) {
+            element.textContent = language === "en" ? color.englishName : color.name;
+        }
+    });
+}
+
+
+// "이미지로 저장" 버튼 클릭 이벤트 리스너 추가
+document.getElementById("save-palette-image").addEventListener("click", savePaletteAsImage);
+document.addEventListener('DOMContentLoaded', showNotice);
+document.querySelector('.close-notice').addEventListener('click', hideNotice);
+
+const searchForm = document.getElementById("search-form");
+const searchInput = document.getElementById("search-input");
+const colorChooser = document.getElementById("color-chooser");
+const searchResults = document.getElementById("search-results");
+searchForm.addEventListener("submit", handleSearchFormSubmit);
+
 
 const languageSelector = document.getElementById("language");
+languageSelector.addEventListener("change", handleLanguageChange);
 
-languageSelector.addEventListener("change", async () => {
-    const selectedLanguage = languageSelector.value;
-    await updateColorNames(selectedLanguage);
-});
 
 // Initialize the website
 async function init() {
@@ -602,3 +512,99 @@ async function init() {
 }
 
 init();
+
+
+//event handlers 
+async function handleSearchFormSubmit(e) {
+    e.preventDefault();
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    const selectedColor = colorChooser.value;
+    const colors = await readColorsFromExcel();
+
+    if (searchTerm) {
+        const results = colors.filter((color) =>
+            color.name.toLowerCase().includes(searchTerm) ||
+            color.alternativeNames.some((name) => name.toLowerCase().includes(searchTerm))
+        );
+        displaySearchResults(results);
+    } else if (selectedColor) {
+        const selectedColorRGB = hexToRgb(selectedColor);
+        const similarColors = colors.map((color) => ({
+            ...color,
+            distance: colorDistance(selectedColorRGB, hexToRgb(color.hexCode)),
+        }));
+        similarColors.sort((a, b) => a.distance - b.distance);
+        const topSimilarColors = similarColors.slice(0, 10);
+        displaySearchResults(topSimilarColors);
+    } else {
+        searchResults.innerHTML = "";
+    }
+}
+
+function handleModalClose() {
+    modal.remove();
+}
+
+function handleModalOutsideClick(event) {
+    if (event.target === modal) {
+        handleModalClose();
+    }
+}
+
+function handleColorBlockClick() {
+    const clickedColorId = Number(block.getAttribute("data-color-id"));
+    modal.remove();
+    showColorDetails(clickedColorId);
+}
+
+function handlePaletteColorClick() {
+    paletteColor.classList.toggle("selected");
+    updatePaletteResult();
+}
+
+function handlePaletteItemClick() {
+    paletteItem.remove();
+    const correspondingPaletteColor = document.querySelector(`.palette-color[style="background-color: ${color};"]`);
+    if (correspondingPaletteColor) {
+        correspondingPaletteColor.classList.remove("selected");
+    }
+}
+
+async function handleLanguageChange() {
+    const selectedLanguage = languageSelector.value;
+    await updateColorNames(selectedLanguage);
+}
+
+// Browser notice functionality
+function isSamsungBrowser() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    return userAgent.includes('samsungbrowser');
+}
+
+function showNotice() {
+    const notice = document.querySelector('.notice');
+    if (isSamsungBrowser()) {
+        notice.style.display = 'block';
+    } 
+}
+
+function hideNotice() {
+    const notice = document.querySelector('.notice');
+    notice.style.display = 'none';
+}
+
+// Helper functions for color searching
+function hexToRgb(hex) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return { r, g, b };
+}
+
+function colorDistance(color1, color2) {
+    const rDiff = color1.r - color2.r;
+    const gDiff = color1.g - color2.g;
+    const bDiff = color1.b - color2.b;
+    return Math.sqrt(rDiff * rDiff + gDiff * gDiff + bDiff * bDiff);
+}
+
