@@ -10,10 +10,11 @@ async function readColorsFromExcel() {
 
     const colors = [];
     for (let i = 0; i < 90; i++) {
-        const [name, alternativeNames, description, hexCode, rgbCode, pantoneCode, similarColors, usedWith] = rows[i];
+        const [name, alternativeNames, description, hexCode, rgbCode, pantoneCode, similarColors, usedWith, englishName] = rows[i];
         colors.push({
             id: i,
             name: name,
+            englishName: englishName, // 추가된 부분
             alternativeNames: alternativeNames ? alternativeNames.split(";") : [],
             description: description,
             hexCode: hexCode,
@@ -25,6 +26,27 @@ async function readColorsFromExcel() {
     }
 
     return colors;
+}
+
+const languageSelector = document.getElementById("language");
+
+languageSelector.addEventListener("change", async () => {
+    const selectedLanguage = languageSelector.value;
+    await updateColorNames(selectedLanguage);
+});
+
+async function updateColorNames(language) {
+    const colors = await readColorsFromExcel();
+    const colorNameElements = document.querySelectorAll(".search-result-info h3, .modal h2, .color-item h3");
+
+    colorNameElements.forEach((element) => {
+        const colorId = element.parentElement.parentElement.getAttribute("data-color-id");
+        const color = colors.find((color) => color.id === Number(colorId));
+
+        if (color) {
+            element.textContent = language === "en" ? color.englishName : color.name;
+        }
+    });
 }
 
 // Search functionality
@@ -179,7 +201,7 @@ async function createColorGraph() {
         color.usedWith.forEach((usedWithColorName) => {
             const usedWithColor = colors.find((c) => c.name === usedWithColorName);
             if (usedWithColor) {
-            edges.push({ from: color.id, to: usedWithColor.id, label: "함께 사용" });
+            edges.push({ from: color.id, to: usedWithColor.id, label: "" });
             }
         });
     });
