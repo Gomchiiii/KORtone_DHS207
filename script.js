@@ -344,25 +344,6 @@ async function addColorToPaletteResult(colorHexCode) {
     const paletteColors = paletteColorsContainer.querySelectorAll(".palette-color");
     const paletteResultContainer = document.getElementById("palette-result");
 
-    let isColorSelected = false;
-
-    paletteColors.forEach((paletteColor) => {
-        if (paletteColor.style.backgroundColor === colorHexCode) {
-            paletteColor.classList.add("selected");
-            isColorSelected = true;
-        }
-    });
-
-    if (!isColorSelected) {
-        const paletteColor = document.createElement("div");
-        paletteColor.className = "palette-color selected";
-        paletteColor.style.backgroundColor = colorHexCode;
-        paletteColor.addEventListener("click", () => {
-            paletteColor.classList.toggle("selected");
-            updatePaletteResult();
-        });
-        await paletteColorsContainer.appendChild(paletteColor);
-    }
 
     const existingPaletteItem = Array.from(paletteResultContainer.children).find(
         (item) => item.style.backgroundColor === colorHexCode
