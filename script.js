@@ -28,12 +28,6 @@ async function readColorsFromExcel() {
     return colors;
 }
 
-const languageSelector = document.getElementById("language");
-
-languageSelector.addEventListener("change", async () => {
-    const selectedLanguage = languageSelector.value;
-    await updateColorNames(selectedLanguage);
-});
 
 async function updateColorNames(language) {
     const colors = await readColorsFromExcel();
@@ -581,6 +575,13 @@ document.addEventListener("click", (event) => {
     if (event.target.classList.contains("download-color-chip")) {
         downloadColorChip(event);
     }
+});
+
+const languageSelector = document.getElementById("language");
+
+languageSelector.addEventListener("change", async () => {
+    const selectedLanguage = languageSelector.value;
+    await updateColorNames(selectedLanguage);
 });
 
 // Initialize the website
