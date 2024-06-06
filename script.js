@@ -303,9 +303,31 @@ async function createPaletteGenerator() {
             paletteItem.className = "palette-item";
             paletteItem.style.backgroundColor = color;
             paletteItem.addEventListener("click", handlePaletteItemClick);
+
+            // 추가한 색상에 대한 "Used With" 색상 표시
+            const usedWithColors = getUsedWithColors(color);
+            usedWithColors.forEach((usedWithColor) => {
+                const usedWithColorItem = document.createElement("div");
+                usedWithColorItem.className = "used-with-color";
+                usedWithColorItem.style.backgroundColor = usedWithColor;
+                paletteItem.appendChild(usedWithColorItem);
+            });
+
             paletteResultContainer.appendChild(paletteItem);
         });
     }
+}
+
+function getUsedWithColors(color) {
+    const colors = readColorsFromExcel();
+    const selectedColor = colors.find((c) => c.hexCode === color);
+    if (selectedColor) {
+        return selectedColor.usedWith.map((usedWithColorName) => {
+            const usedWithColor = colors.find((c) => c.name === usedWithColorName);
+            return usedWithColor ? usedWithColor.hexCode : null;
+        }).filter((color) => color !== null);
+    }
+    return [];
 }
 
 function addColorToPaletteResult(colorHexCode) {
@@ -555,17 +577,23 @@ function handleColorBlockClick(block, modal) {
     showColorDetails(clickedColorId);
 }
 
-function handlePaletteColorClick() {
+function handlePaletteColorClick(event) {
+    const paletteColor = event.target;
     paletteColor.classList.toggle("selected");
     updatePaletteResult();
 }
 
-function handlePaletteItemClick() {
+function handlePaletteItemClick(event) {
+    const paletteItem = event.target;
+    const color = paletteItem.style.backgroundColor;
     paletteItem.remove();
+
     const correspondingPaletteColor = document.querySelector(`.palette-color[style="background-color: ${color};"]`);
     if (correspondingPaletteColor) {
         correspondingPaletteColor.classList.remove("selected");
     }
+
+    updatePaletteResult();
 }
 
 async function handleLanguageChange() {
