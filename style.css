@@ -146,6 +146,14 @@ section {
   border: 2px solid #000;
 }
 
+.used-with-color {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 2px;
+    border: 2px solid blue;
+}
+
 #palette-result {
   display: flex;
   flex-wrap: wrap;
@@ -162,6 +170,7 @@ section {
   position: relative;
   cursor: pointer;
 }
+
 
 .palette-item:hover::before {
     content: "Delete";
