@@ -97,6 +97,7 @@ function displaySearchResults(results) {
     results.forEach((color) => {
         const resultItem = document.createElement("div");
         resultItem.className = "search-result-item";
+        resultItem.setAttribute("data-color-id", color.id);
         resultItem.innerHTML = `
             <div class="search-result-color" style="background-color: ${color.hexCode}"></div>
             <div class="search-result-info">
@@ -117,6 +118,7 @@ async function showColorDetails(colorId) {
     // Create a modal element
     const modal = document.createElement("div");
     modal.className = "modal";
+    modal.setAttribute("data-color-id", colorId);
     modal.innerHTML = `
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -286,6 +288,7 @@ async function createColorCatalog() {
     colors.forEach((color) => {
         const colorItem = document.createElement("div");
         colorItem.className = "color-item";
+        colorItem.setAttribute("data-color-id", color.id);
         colorItem.innerHTML = `
             <div class="color-swatch" style="background-color: ${color.hexCode}"></div>
             <h3>${color.name}</h3>
