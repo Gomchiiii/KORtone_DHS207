@@ -28,13 +28,12 @@ async function readColorsFromExcel() {
     return colors;
 }
 
-
 async function updateColorNames(language) {
     const colors = await readColorsFromExcel();
     const colorNameElements = document.querySelectorAll(".search-result-info h3, .modal h2, .color-item h3");
 
     colorNameElements.forEach((element) => {
-        const colorId = element.parentElement.parentElement.getAttribute("data-color-id");
+        const colorId = element.closest("[data-color-id]").getAttribute("data-color-id");
         const color = colors.find((color) => color.id === Number(colorId));
 
         if (color) {
@@ -75,9 +74,8 @@ searchForm.addEventListener("submit", async (e) => {
     }
 });
 
-// ... (existing code)
 
-// Helper functions
+// Helper functions for color searching
 function hexToRgb(hex) {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
@@ -134,7 +132,7 @@ async function showColorDetails(colorId) {
                 ${color.similarColors.map((similarColorName) => {
                     const similarColor = colors.find((c) => c.name === similarColorName);
                     if (similarColor) {
-                        return `<div class="color-block" style="background-color: ${similarColor.hexCode};" title="${similarColor.name}"></div>`;
+                        return `<div class="color-block" style="background-color: ${similarColor.hexCode};" data-color-id="${similarColor.id}" title="${similarColor.name}"></div>`;
                     }
                     return '';
                 }).join("")}
@@ -144,7 +142,7 @@ async function showColorDetails(colorId) {
                 ${color.usedWith.map((usedWithColorName) => {
                     const usedWithColor = colors.find((c) => c.name === usedWithColorName);
                     if (usedWithColor) {
-                        return `<div class="color-block" style="background-color: ${usedWithColor.hexCode};" title="${usedWithColor.name}"></div>`;
+                        return `<div class="color-block" style="background-color: ${usedWithColor.hexCode};" data-color-id="${usedWithColor.id}" title="${usedWithColor.name}"></div>`;
                     }
                     return '';
                 }).join("")}
