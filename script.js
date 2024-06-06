@@ -299,24 +299,28 @@ async function updatePaletteResult() {
     const selectedColors = Array.from(document.querySelectorAll(".palette-color.selected"));
     const paletteColors = selectedColors.map((color) => color.style.backgroundColor);
 
-    paletteResultContainer.innerHTML = "";
-    for (const color of paletteColors) {
-        const paletteItem = document.createElement("div");
-        paletteItem.className = "palette-item selected";
-        paletteItem.style.backgroundColor = color;
-        paletteItem.addEventListener("click", handlePaletteItemClick);
+    paletteColors.forEach(async (color) => {
+        const existingPaletteItem = Array.from(paletteResultContainer.children).find(
+            (item) => item.style.backgroundColor === color
+        );
 
-        // 추가한 색상에 대한 "Used With" 색상 표시
-        const usedWithColors = await getUsedWithColors(color);
-        usedWithColors.forEach((usedWithColor) => {
-            const usedWithColorItem = document.createElement("div");
-            usedWithColorItem.className = "used-with-color";
-            usedWithColorItem.style.backgroundColor = usedWithColor;
-            paletteItem.appendChild(usedWithColorItem);
-        });
+        if (!existingPaletteItem) {
+            const paletteItem = document.createElement("div");
+            paletteItem.className = "palette-item";
+            paletteItem.style.backgroundColor = color;
+            paletteItem.addEventListener("click", handlePaletteItemClick);
 
-        paletteResultContainer.appendChild(paletteItem);
-    }
+            const usedWithColors = await getUsedWithColors(color);
+            usedWithColors.forEach((usedWithColor) => {
+                const usedWithColorItem = document.createElement("div");
+                usedWithColorItem.className = "used-with-color";
+                usedWithColorItem.style.backgroundColor = usedWithColor;
+                paletteItem.appendChild(usedWithColorItem);
+            });
+
+            paletteResultContainer.appendChild(paletteItem);
+        }
+    });
 }
 
 async function getUsedWithColors(color) {
