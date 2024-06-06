@@ -91,10 +91,10 @@ async function showColorDetails(colorId) {
         </div>
     `;
 
-    modal.querySelector(".close").addEventListener("click", handleModalClose);
+    modal.querySelector(".close").addEventListener("click", () => handleModalClose(modal));
     modal.addEventListener("click", handleModalOutsideClick);
     modal.querySelectorAll(".color-block").forEach((block) => {
-        block.addEventListener("click", handleColorBlockClick);
+        block.addEventListener("click", () => handleColorBlockClick(block, modal));
     });
 
     // Append the modal to the document body
@@ -486,8 +486,6 @@ async function updateColorNames(language) {
     });
 }
 
-
-// "이미지로 저장" 버튼 클릭 이벤트 리스너 추가
 document.getElementById("save-palette-image").addEventListener("click", savePaletteAsImage);
 document.addEventListener('DOMContentLoaded', showNotice);
 document.querySelector('.close-notice').addEventListener('click', hideNotice);
@@ -541,17 +539,17 @@ async function handleSearchFormSubmit(e) {
     }
 }
 
-function handleModalClose() {
+function handleModalClose(modal) {
     modal.remove();
 }
 
 function handleModalOutsideClick(event) {
-    if (event.target === modal) {
-        handleModalClose();
+    if (event.target === event.currentTarget) {
+        handleModalClose(event.currentTarget);
     }
 }
 
-function handleColorBlockClick() {
+function handleColorBlockClick(block, modal) {
     const clickedColorId = Number(block.getAttribute("data-color-id"));
     modal.remove();
     showColorDetails(clickedColorId);
