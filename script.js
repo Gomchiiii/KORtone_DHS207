@@ -96,6 +96,10 @@ async function showColorDetails(colorId) {
     modal.querySelectorAll(".color-block").forEach((block) => {
         block.addEventListener("click", () => handleColorBlockClick(block, modal));
     });
+    modal.querySelector(".add-to-palette").addEventListener("click", () => {
+        const colorHexCode = modal.querySelector(".add-to-palette").getAttribute("data-color");
+        addColorToPaletteResult(colorHexCode);
+    });
 
     // Append the modal to the document body
     document.body.appendChild(modal);
@@ -290,7 +294,7 @@ async function createPaletteGenerator() {
         paletteColor.className = "palette-color";
         paletteColor.style.backgroundColor = color.hexCode;
         paletteColor.addEventListener("click", handlePaletteColorClick);
-        paletteColorsContainer.appendChild(paletteColor);
+        paletteResultContainer.appendChild(paletteColor);
     });
 }
 
@@ -357,7 +361,7 @@ async function addColorToPaletteResult(colorHexCode) {
             paletteColor.classList.toggle("selected");
             updatePaletteResult();
         });
-        paletteColorsContainer.appendChild(paletteColor);
+        await paletteColorsContainer.appendChild(paletteColor);
     }
 
     const existingPaletteItem = Array.from(paletteResultContainer.children).find(
