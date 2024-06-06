@@ -154,7 +154,15 @@ async function showColorDetails(colorId) {
         </div>
     `;
 
-    // ... (existing code)
+    // Add event listener to color blocks
+    modal.querySelectorAll(".color-block").forEach((block) => {
+        block.addEventListener("click", () => {
+            const colorId = block.getAttribute("data-color-id");
+            modal.remove();
+            showColorDetails(Number(colorId));
+        });
+    });
+
 
     // Add event listener to close the modal when clicking on the close button or outside the modal content
     const closeModal = () => {
