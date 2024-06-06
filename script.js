@@ -344,25 +344,24 @@ async function addColorToPaletteResult(colorHexCode) {
     const paletteColors = paletteColorsContainer.querySelectorAll(".palette-color");
     const paletteResultContainer = document.getElementById("palette-result");
 
+    let isColorSelected = false;
 
-    const existingPaletteItem = Array.from(paletteResultContainer.children).find(
-        (item) => item.style.backgroundColor === colorHexCode
-    );
+    paletteColors.forEach((paletteColor) => {
+        if (paletteColor.style.backgroundColor === colorHexCode) {
+            paletteColor.classList.add("selected");
+            isColorSelected = true;
+        }
+    });
 
-    if (!existingPaletteItem) {
-        const paletteItem = document.createElement("div");
-        paletteItem.className = "palette-item";
-        paletteItem.style.backgroundColor = colorHexCode;
-        paletteItem.addEventListener("click", () => {
-            paletteItem.remove();
-            const correspondingPaletteColor = document.querySelector(`.palette-color[style="background-color: ${colorHexCode};"]`);
-            if (correspondingPaletteColor) {
-                correspondingPaletteColor.classList.remove("selected");
-                updatePaletteResult();
-            }
-        });
-        paletteResultContainer.appendChild(paletteItem);
+    if (!isColorSelected) {
+        const paletteColor = document.createElement("div");
+        paletteColor.className = "palette-color selected";
+        paletteColor.style.backgroundColor = colorHexCode;
+        paletteColor.addEventListener("click", handlePaletteColorClick);
+        paletteColorsContainer.appendChild(paletteColor);
     }
+
+    await updatePaletteResult();
 }
 
 async function savePaletteAsImage() {
