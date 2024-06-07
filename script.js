@@ -295,7 +295,7 @@ async function createPaletteGenerator() {
         paletteColor.style.backgroundColor = color.hexCode;
         paletteColor.addEventListener("click", () => {
             paletteColor.classList.toggle("selected");
-            updatePaletteResult();
+            addColorToPaletteResult(paletteColor.style.backgroundColor);
         });
         paletteColorsContainer.appendChild(paletteColor);
     });
