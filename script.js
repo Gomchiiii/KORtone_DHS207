@@ -301,31 +301,23 @@ async function createPaletteGenerator() {
     });
 }
 
-async function updatePaletteResult() {
+function updatePaletteResult() {
     const selectedColors = Array.from(document.querySelectorAll(".palette-color.selected"));
     const paletteColors = selectedColors.map((color) => color.style.backgroundColor);
 
-    paletteColors.forEach(async (color) => {
-        const existingPaletteItem = Array.from(paletteResultContainer.children).find(
-            (item) => item.style.backgroundColor === color
-        );
-
-        if (!existingPaletteItem) {
-            const paletteItem = document.createElement("div");
-            paletteItem.className = "palette-item";
-            paletteItem.style.backgroundColor = color;
-            paletteItem.addEventListener("click", handlePaletteItemClick);
-
-            const usedWithColors = await getUsedWithColors(color);
-            usedWithColors.forEach((usedWithColor) => {
-                const usedWithColorItem = document.createElement("div");
-                usedWithColorItem.className = "used-with-color";
-                usedWithColorItem.style.backgroundColor = usedWithColor;
-                paletteItem.appendChild(usedWithColorItem);
-            });
-
-            paletteResultContainer.appendChild(paletteItem);
-        }
+    paletteResultContainer.innerHTML = "";
+    paletteColors.forEach((color) => {
+        const paletteItem = document.createElement("div");
+        paletteItem.className = "palette-item";
+        paletteItem.style.backgroundColor = color;
+        paletteItem.addEventListener("click", () => {
+            paletteItem.remove();
+            const correspondingPaletteColor = document.querySelector(`.palette-color[style="background-color: ${color};"]`);
+            if (correspondingPaletteColor) {
+                correspondingPaletteColor.classList.remove("selected");
+            }
+        });
+        paletteResultContainer.appendChild(paletteItem);
     });
 }
 
