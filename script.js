@@ -297,7 +297,7 @@ async function createPaletteGenerator() {
             paletteColor.classList.toggle("selected");
             updatePaletteResult();
         });
-        paletteColorsContainer.appendChild(paletteColor); // 이 부분 변경
+        paletteColorsContainer.appendChild(paletteColor);
     });
 }
 
