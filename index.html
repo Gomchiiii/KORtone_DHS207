@@ -42,7 +42,7 @@
 <main>
     <section id="home">
         <h2>환영합니다!</h2>
-        <p class="section-description"><strong>때깔은 한국에서 빛깔의 아름다움과 깊이를 나타내는 말입니다. 이 웹페이지는 역사 속 한국 전통색의 쓰임을 탐구하고, 그 아름다움의 현대식 재해석을 목표로 합니다.</strong></p>
+        <p class="section-description"><strong>때깔 : 빛깔의 아름다움과 깊이. 이 웹페이지는 한국사 속 색의 쓰임을 탐구하고, 그 아름다움의 현대식 재해석을 목표로 합니다.</strong></p>
         <form id="search-form">
             <div class="search-inputs">
                 <input type="text" id="search-input" placeholder="색 이름 입력">
@@ -56,28 +56,31 @@
     <section id="graph">
         <h2>색 그래프</h2>
         <div id="color-graph"></div>
-        <p class="section-description">노드가 같은 줄에 있다는 것은 해당 색상들이 자주 함께 사용된다는 것을 의미합니다. 예를 들어, A색과 B색이 같은 줄에 있다면, 이는 A색과 B색이 디자인에서 조화롭게 어울린다는 것을 나타냅니다. 그래프의 중앙에 위치한 백색은 다양한 색상과 함께 자주 사용되는 중심적인 색상임을 시사합니다. 이는 흰색이 다른 색상들과 잘 어울리며 디자인에서 균형을 잡아주는 역할을 하기 때문입니다.</p>
+        <p class="section-description">상호작용 가능한 그래프입니다. 노드가 같은 줄에 있다는 것은 해당 색상들이 자주 함께 사용된다는 것을 의미합니다. 예를 들어, A색과 B색이 같은 줄에 있다면, 이는 A색과 B색이 디자인에서 조화롭게 어울린다는 것을 나타냅니다. 그래프의 중앙에 위치한 백색은 다양한 색상과 함께 자주 사용되는 중심적인 색상임을 시사합니다. 이는 흰색이 다른 색상들과 잘 어울리며 디자인에서 균형을 잡아주는 역할을 하기 때문입니다.</p>
         <p class="section-description-anotaion"> * 그래프에서 사용된 hierarchical 레이아웃 알고리즘은 노드 간의 관계와 edges의 방향성을 고려하여 그래프를 계층적으로 배치합니다. 이는 노드 간의 관계를 명확하게 나타내고 edges의 교차를 최소화하여 가독성을 높입니다.</p>
     </section>
     
     <section id="ryb-color-space">
         <h2>오방색 기반 색공간</h2>
+        <p class="section-description">오방의 방위 개념을 활용하여 만든 색공간입니다. 90색을 넘어 모든 색에 음양오행의 방위적 개념, 정서를 부여할 수 있도록 하고자 합니다.</p>
         <div id="color-space"></div>
-        <div id="color-info">
+        <!-- <div id="color-info">
           <p>Selected Color:</p>
           <div id="selected-color"></div>
           <p>RYB Values: <span id="ryb-values"></span></p>
-          <p>RGB Values: <span id="rgb-values"></span></p>
+          <p>RGB Values: <span id="rgb-values"></span></p> -->
         </div>
       </section>
 
     <section id="catalog">
         <h2>색 카탈로그</h2>
+        <p class="section-description">전통색 90색으로 선정된 색의 목록입니다. 클릭하여 색의 정확한 정보를 볼 수 있습니다.</p>
         <div id="color-catalog"></div>
     </section>
 
     <section id="palette-generator">
         <h2>Color Palette Generator</h2>
+        <p class="section-description">직접 팔레트를 만들 수 있습니다.</p>
         <div id="palette-colors"></div>
         <!-- <button id="generate-palette">Generate Palette</button> -->
         <div id="palette-result"></div>
@@ -92,7 +95,7 @@
 </main>
 
 <footer>
-    <p>&copy; 2024 한국 전통색 웹사이트. All rights reserved.</p>
+    <p>&copy; 2024 때깔. 깃헙 @Gomchiiii All rights reserved.</p>
 </footer>
 <script src="script.js"></script>
 <script src="color-space.js"></script>

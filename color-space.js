@@ -10,11 +10,11 @@ document.getElementById('color-space').appendChild(renderer.domElement);
 // Create the triangular bipyramid geometry
 const geometry = new THREE.Geometry();
 geometry.vertices.push(
-  new THREE.Vector3(0, 1, 0),  // Top pole (white)
-  new THREE.Vector3(-1, 0, -1),  // Red vertex
-  new THREE.Vector3(1, 0, -1),  // Yellow vertex
-  new THREE.Vector3(0, 0, 1),  // Blue vertex
-  new THREE.Vector3(0, -1, 0)  // Bottom pole (black)
+  new THREE.Vector3(-1, 0, 1),  // Top pole (white)
+  new THREE.Vector3(0, -1, 0),  // Red vertex
+  new THREE.Vector3(0, 0, 0),  // Yellow vertex
+  new THREE.Vector3(1, 0, 0),  // Blue vertex
+  new THREE.Vector3(0, 1, -1)  // Bottom pole (black)
 );
 geometry.faces.push(
   new THREE.Face3(0, 1, 2),  // Top face (white, red, yellow)
@@ -42,16 +42,16 @@ geometry.faces[5].vertexColors = [new THREE.Color(0x000000), new THREE.Color(0xf
 camera.position.z = 5;
 // ... (이전 코드 생략) ...
 
-function displaySelectedColor(color) {
-  const selectedColorElement = document.getElementById('selected-color');
-  selectedColorElement.style.backgroundColor = `rgb(${color.r * 255}, ${color.g * 255}, ${color.b * 255})`;
+// function displaySelectedColor(color) {
+//   const selectedColorElement = document.getElementById('selected-color');
+//   selectedColorElement.style.backgroundColor = `rgb(${color.r * 255}, ${color.g * 255}, ${color.b * 255})`;
 
-  const rybValues = `R: ${color.r.toFixed(2)}, Y: ${color.g.toFixed(2)}, B: ${color.b.toFixed(2)}`;
-  document.getElementById('ryb-values').textContent = rybValues;
+//   const rybValues = `R: ${color.r.toFixed(2)}, Y: ${color.g.toFixed(2)}, B: ${color.b.toFixed(2)}`;
+//   document.getElementById('ryb-values').textContent = rybValues;
 
-  const rgbValues = `R: ${Math.round(color.r * 255)}, G: ${Math.round(color.g * 255)}, B: ${Math.round(color.b * 255)}`;
-  document.getElementById('rgb-values').textContent = rgbValues;
-}
+//   const rgbValues = `R: ${Math.round(color.r * 255)}, G: ${Math.round(color.g * 255)}, B: ${Math.round(color.b * 255)}`;
+//   document.getElementById('rgb-values').textContent = rgbValues;
+// }
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2(); // mouse 변수 정의
