@@ -352,7 +352,7 @@ async function addColorToPaletteResult(colorHexCode) {
         paletteColor.className = "palette-color selected";
         paletteColor.style.backgroundColor = colorHexCode;
         paletteColor.addEventListener("click", handlePaletteColorClick);
-        paletteColorsContainer.appendChild(paletteColor);
+        //paletteColorsContainer.appendChild(paletteColor);
     }
 
     const existingPaletteItem = Array.from(paletteResultContainer.children).find(
