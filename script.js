@@ -335,8 +335,25 @@ async function getUsedWithColors(color) {
 
 async function addColorToPaletteResult(colorHexCode) {
     const paletteColorsContainer = document.getElementById("palette-colors");
-    //const paletteColors = paletteColorsContainer.querySelectorAll(".palette-color");
+    const paletteColors = paletteColorsContainer.querySelectorAll(".palette-color");
     const paletteResultContainer = document.getElementById("palette-result");
+
+    let isColorSelected = false;
+
+    paletteColors.forEach((paletteColor) => {
+        if (paletteColor.style.backgroundColor === colorHexCode) {
+            paletteColor.classList.add("selected");
+            isColorSelected = true;
+        }
+    });
+
+    if (!isColorSelected) {
+        const paletteColor = document.createElement("div");
+        paletteColor.className = "palette-color selected";
+        paletteColor.style.backgroundColor = colorHexCode;
+        paletteColor.addEventListener("click", handlePaletteColorClick);
+        paletteColorsContainer.appendChild(paletteColor);
+    }
 
     const existingPaletteItem = Array.from(paletteResultContainer.children).find(
         (item) => item.style.backgroundColor === colorHexCode
@@ -357,6 +374,7 @@ async function addColorToPaletteResult(colorHexCode) {
         paletteResultContainer.appendChild(paletteItem);
     }
 }
+
 
 async function savePaletteAsImage() {
     const paletteResultContainer = document.getElementById("palette-result");
@@ -560,10 +578,10 @@ function handleColorBlockClick(block, modal) {
     showColorDetails(clickedColorId);
 }
 
-async function handlePaletteColorClick(event) {
+function handlePaletteColorClick(event) {
     const paletteColor = event.target;
     paletteColor.classList.toggle("selected");
-    await updatePaletteResult();
+    updatePaletteResult();
 }
 
 function handlePaletteItemClick(event) {
